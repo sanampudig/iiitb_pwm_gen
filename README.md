@@ -23,11 +23,11 @@ Pulse Width Modulated Wave Generator can be used to
 ## Blocked Diagram of PWM GENERATOR
 
 <p align="center">
-  <img width="800" height="500" src="/Images/BasicBlockedDeagram.jpeg">
+  <img width="800" height="400" src="/Images/BasicBlockedDeagram.jpeg">
 </p>
 
 <p align="center">
-  <img width="800" height="100" src="/Images/BlockDiagram.jpeg">
+  <img width="800" height="300" src="/Images/BlockDiagram.jpeg">
 </p>
 
 
