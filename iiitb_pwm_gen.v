@@ -1,4 +1,4 @@
-module PWM_Generator_Verilog
+module iiitb_pwm_genPWM_Generator_Verilog
  (
  clk, // 100MHz clock input 
  increase_duty, // input to increase 10% duty cycle 
