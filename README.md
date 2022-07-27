@@ -38,6 +38,21 @@ As counter starts at zero, initially comparator gives high output and when count
 
 As the comparator is a combinational circuit and the counter is sequential, while counting from 011 to 100 due to improper delays there might be an intermediate state like 111 which might be higher or lower than duty. This might cause a glitch. To avoid these glitches output of the comparator is passed through a D flipflop.
 
+## About iverilog 
+Icarus Verilog is an implementation of the Verilog hardware description language.
+## About GTKWave
+GTKWave is a fully featured GTK+ v1. 2 based wave viewer for Unix and Win32 which reads Ver Structural Verilog Compiler generated AET files as well as standard Verilog VCD/EVCD files and allows their viewing
+
+### Installing iverilog and GTKWave
+
+#### For Ubuntu
+
+Open your terminal and type the following to install iverilog and GTKWave
+```
+$   sudo apt get update
+$   sudo apt get install iverilog gtkwave
+
+```
 
 
 ### Functional Simulation
