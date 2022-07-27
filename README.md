@@ -1,4 +1,4 @@
-# iiitb_pwm_gen --- Pulse Width Modulated Wave Generator with Variable Duty Cycle
+# iiitb_pwm_gen -> Pulse Width Modulated Wave Generator with Variable Duty Cycle
 
 This project simulates the designed Pulse Width Modulated Wave Generator with Variable Duty Cycle. We can generate PWM wave and varry its DUTYCYCLE in steps of 10%. 
 
@@ -51,4 +51,19 @@ $   ./a.out
 $   gtkwave pwm.vcd
 ```
 
+## Contributors 
 
+- **Sanampudi Gopala Krishna Reddy** 
+- **Kunal Ghosh** 
+
+
+
+## Acknowledgments
+
+
+- Kunal Ghosh, Director, VSD Corp. Pvt. Ltd.
+
+## Contact Information
+
+- Sanampudi Gopala Krishna Reddy, Postgraduate Student, International Institute of Information Technology, Bangalore  svgkr7@gmail.com
+- Kunal Ghosh, Director, VSD Corp. Pvt. Ltd. kunalghosh@gmail.com
