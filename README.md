@@ -1,8 +1,13 @@
 # iiitb_pwm_gen --- Pulse Width Modulated Wave Generator with Variable Duty Cycle
 
-This project simulates the designed Pulse Width Modulated Wave Generator with Variable Duty Cycle. We can generate PWM wave and varry its DUTYCYCLE in steps of 10% 
+This project simulates the designed Pulse Width Modulated Wave Generator with Variable Duty Cycle. We can generate PWM wave and varry its DUTYCYCLE in steps of 10%. 
 
 *Note: Circuit requires further optimization to improve performance. Design yet to be modified.*
+
+## Introduction
+Pulse Width Modulation is a famous technique used to create modulated electronic pulses of the desired width. The duty cycle is the ratio of how long that PWM signal stays at the high position to the total time period.
+## Blocked Diagram of PWM GENERATOR
+
 
 PWM Generator
 Pulse Width Modulation is a famous technique used to create modulated electronic pulses of the desired width. The duty cycle is the ratio of how long that PWM signal stays at the high position to the total time period.
