@@ -22,6 +22,9 @@ Pulse Width Modulated Wave Generator can be used to
 
 ## Blocked Diagram of PWM GENERATOR
 
+This PWM generator generates 10Mhz signal. We can control duty cycles in steps of 10%. The default duty cycle is 50%. Along with clock signal we provide another two external signals to increase and decrease the duty cycle.
+
+
 <p align="center">
   <img width="800" height="400" src="/Images/BasicBlockedDeagram.jpeg">
 </p>
