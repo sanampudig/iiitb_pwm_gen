@@ -46,9 +46,9 @@ To clone the Repository and download the Netlist files for Simulation, enter the
 $   sudo apt install -y git
 $   git clone https://github.com/sanampudig/iiitb_pwm_gen
 $   cd iiitb_pwm_gen
-$  iverilog iverilog iiitb_pwm_gen.v iiitb_pwm_gen_tb.v
-$  ./a.out
-$  gtkwave pwm.vcd
+$   iverilog iverilog iiitb_pwm_gen.v iiitb_pwm_gen_tb.v
+$   ./a.out
+$   gtkwave pwm.vcd
 ```
 
 
