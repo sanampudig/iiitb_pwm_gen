@@ -27,7 +27,7 @@ Pulse Width Modulated Wave Generator can be used to
 </p>
 
 <p align="center">
-  <img width="800" height="400" src="/Images/BlockDiagram.jpeg">
+  <img width="800" height="100" src="/Images/BlockDiagram.jpeg">
 </p>
 
 
