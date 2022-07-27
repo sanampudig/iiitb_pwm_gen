@@ -1,5 +1,5 @@
 `timescale 1ns / 1ps
-module tb_PWM_Generator_Verilog;  
+module iiitb_pwm_gen_tb;  
  // Inputs
  reg clk;
  reg increase_duty;
@@ -7,7 +7,7 @@ module tb_PWM_Generator_Verilog;
  // Outputs
  wire PWM_OUT;
  // Instantiate the PWM Generator with variable duty cycle in Verilog
- PWM_Generator_Verilog PWM_Generator_Unit(
+ iiitb_pwm_gen PWM_Generator_Unit(
   .clk(clk), 
   .increase_duty(increase_duty), 
   .decrease_duty(decrease_duty), 
@@ -19,7 +19,7 @@ module tb_PWM_Generator_Verilog;
 	//for creating vcd waveform file to view in gtkwave
 	
 	$dumpfile ("pwm.vcd"); //by default vcd
-	$dumpvars(0, tb_PWM_Generator_Verilog);
+	$dumpvars(0, iiitb_pwm_gen_tb);
     end
  initial begin
  clk = 0;
