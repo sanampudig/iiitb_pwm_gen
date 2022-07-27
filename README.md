@@ -9,6 +9,15 @@ Pulse Width Modulation is a famous technique used to create modulated electronic
 <p align="center">
   <img width="800" height="500" src="/Images/pwm.jpeg">
 </p>
+## Applications
+Pulse Width Modulated Wave Generator can be used to 
+```
+control the brightness of the LED
+drive buzzers at different loudnes
+control the angle of the servo motor
+encode messages in telecommunication
+used in speed controlers of motors
+```
 
 ## Blocked Diagram of PWM GENERATOR
 
