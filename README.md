@@ -51,7 +51,6 @@ Open your terminal and type the following to install iverilog and GTKWave
 ```
 $   sudo apt get update
 $   sudo apt get install iverilog gtkwave
-
 ```
 
 
@@ -65,6 +64,17 @@ $   iverilog iverilog iiitb_pwm_gen.v iiitb_pwm_gen_tb.v
 $   ./a.out
 $   gtkwave pwm.vcd
 ```
+
+## Functional Characteristics
+Simulation Results while increasing Dutycycle
+<p align="center">
+  <img width="800" height="300" src="/Images/incPWM.jpeg">
+</p>
+
+Simulation Results while decreasing Dutycycle
+<p align="center">
+  <img width="800" height="300" src="/Images/decPWM.jpeg">
+</p>
 
 ## Contributors 
 
