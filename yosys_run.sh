@@ -6,8 +6,8 @@ read_verilog iiitb_pwm_gen.v
 synth -top iiitb_pwm_gen
 
 # mapping to mycells.lib
-dfflibmap -liberty /home/rakshit/iiitb_pwm_gen/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
-abc -liberty /home/rakshit/iiitb_pwm_gen/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+dfflibmap -liberty /home/svgkr7/Desktop/iiitb_pwm_gen/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+abc -liberty /home/svgkr7/Desktop/iiitb_pwm_gen/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
 clean
 flatten
 # write synthesized design
