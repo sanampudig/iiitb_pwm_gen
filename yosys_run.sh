@@ -11,4 +11,4 @@ abc -liberty /home/svgkr7/Desktop/iiitb_pwm_gen/lib/sky130_fd_sc_hd__tt_025C_1v8
 clean
 flatten
 # write synthesized design
-write_verilog -assert iiitb_pwm_gen_synth.v
+write_verilog -noattr iiitb_pwm_gen_synth.v
