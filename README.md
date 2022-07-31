@@ -76,6 +76,23 @@ Simulation Results while decreasing Dutycycle
   <img width="800" height="300" src="/Images/decPWM.jpeg">
 </p>
 
+
+
+## synthesis of verilog code
+
+#### About Yosys
+Yosys is a framework for Verilog RTL synthesis. It currently has extensive Verilog-2005 support and provides a basic set of synthesis algorithms for various application domains
+```
+$   sudo apt-get update
+$   sudo apt-get -y install yosys
+```
+to synthesize
+```
+$   yosys -s yosys_run.sh
+```
+
+
+
 ## Contributors 
 
 - **Sanampudi Gopala Krishna Reddy** 
