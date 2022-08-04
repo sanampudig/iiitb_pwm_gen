@@ -109,3 +109,7 @@ $   yosys -s yosys_run.sh
 
 - Sanampudi Gopala Krishna Reddy, Postgraduate Student, International Institute of Information Technology, Bangalore  svgkr7@gmail.com
 - Kunal Ghosh, Director, VSD Corp. Pvt. Ltd. kunalghosh@gmail.com
+
+##References:
+- FPGA4Student
+ https://www.fpga4student.com/2017/08/verilog-code-for-pwm-generator.html
