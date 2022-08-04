@@ -89,6 +89,11 @@ To install yosys follow the instructions in  this github repository
 
 https://github.com/YosysHQ/yosys
 
+- note: Identify the .lib file path in cloned folder and change the path in highlighted text to indentified path
+
+<img width="881" alt="image" src="https://user-images.githubusercontent.com/110079648/182904148-a4ecb63f-b43b-4236-87fe-fcee14e84255.png">
+
+
 #### to synthesize
 ```
 $   yosys
