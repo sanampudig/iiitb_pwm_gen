@@ -81,24 +81,25 @@ Simulation Results while decreasing Dutycycle
 ## synthesis of verilog code
 
 #### About Yosys
-Yosys is a framework for Verilog RTL synthesis. It currently has extensive Verilog-2005 support and provides a basic set of synthesis algorithms for various application domains
-more at https://yosyshq.net/yosys/
+Yosys is a framework for Verilog RTL synthesis. It currently has extensive Verilog-2005 support and provides a basic set of synthesis algorithms for various application domains.
+
+- more at https://yosyshq.net/yosys/
 
 To install yosys follow the instructions in  this github repository
 
 https://github.com/YosysHQ/yosys
 
-to synthesize
+#### to synthesize
 ```
 $   yosys
 $   yosys>    script yosys_run.sh
 ```
 
-to see diffarent types of cells after synthesys
+#### to see diffarent types of cells after synthesys
 ```
 $   yosys>    stat
 ```
-to generate schematics
+#### to generate schematics
 ```
 $   yosys>    show
 ```
