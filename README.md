@@ -77,7 +77,15 @@ Simulation Results while decreasing Dutycycle
 </p>
 
 
+### SYNTHESIS
+**Synthesis**: Synthesis transforms the simple RTL design into a gate-level netlist with all the constraints as specified by the designer. In simple language, Synthesis is a process that converts the abstract form of design to a properly implemented chip in terms of logic gates.
 
+Synthesis takes place in multiple steps:
+- Converting RTL into simple logic gates.
+- Mapping those gates to actual technology-dependent logic gates available in the technology libraries.
+- Optimizing the mapped netlist keeping the constraints set by the designer intact.
+
+**Synthesizer**: It is a tool we use to convert out RTL design code to netlist. Yosys is the tool I've used in this project.
 ## synthesis of verilog code
 
 #### About Yosys
@@ -89,10 +97,33 @@ To install yosys follow the instructions in  this github repository
 
 https://github.com/YosysHQ/yosys
 
+Now you need to create a yosys_run.sh file , which is the yosys script file used to run the synthesis.
+The contents of the yosys_run file are given below:
+
+```
+# read design
+
+read_verilog iiitb_pwm_gen.v
+
+# generic synthesis
+synth -top iiitb_pwm_gen
+
+# mapping to mycells.lib
+dfflibmap -liberty /home/svgkr7/Desktop/iiitb_pwm_gen/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+abc -liberty /home/svgkr7/Desktop/iiitb_pwm_gen/lib/sky130_fd_sc_hd__tt_025C_1v80.lib -script +strash;scorr;ifraig;retime,{D};strash;dch,-f;map,-M,1,{D}
+clean
+flatten
+# write synthesized design
+write_verilog -noattr iiitb_pwm_gen_synth.v
+
+```
+
+
 - note: Identify the .lib file path in cloned folder and change the path in highlighted text to indentified path
 
 <img width="1119" alt="image" src="https://user-images.githubusercontent.com/110079648/182905357-064fec34-3c2b-4997-a0b7-30453f505ddd.png">
 
+Now, in the terminal of your verilog files folder, run the following commands:
 
 
 #### to synthesize
