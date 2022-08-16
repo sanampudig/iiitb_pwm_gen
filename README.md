@@ -140,6 +140,20 @@ $   yosys>    stat
 ```
 $   yosys>    show
 ```
+Now the synthesized netlist is written in "iiitb_rv32i_synth.v" file.
+### GATE LEVEL SIMULATION(GLS)
+GLS is generating the simulation output by running test bench with netlist file generated from synthesis as design under test. Netlist is logically same as RTL code, therefore, same test bench can be used for it.We perform this to verify logical correctness of the design after synthesizing it. Also ensuring the timing of the design is met.
+Folllowing are the commands to run the GLS simulation:
+```
+iverilog -DFUNCTIONAL -DUNIT_DELAY=#1 ../verilog_model/primitives.v ../verilog_model/sky130_fd_sc_hd.v iiitb_pwm_gen_synth.v iiitb_pwm_gen_tb.v
+./a.out
+gtkwave pwm.vcd
+```
+The gtkwave output for the netlist should match the output waveform for the RTL design file. As netlist and design code have same set of inputs and outputs, we can use the same testbench and compare the waveforms.
+
+The output waveform of the synthesized netlist given below:
+<img width="1200" alt="image" src="https://user-images.githubusercontent.com/110079648/184836440-df2b2348-8e3b-402e-9d00-36b5ca0c22b0.png">
+
 
 
 ## Contributors 
