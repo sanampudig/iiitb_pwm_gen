@@ -151,8 +151,11 @@ gtkwave pwm.vcd
 ```
 The gtkwave output for the netlist should match the output waveform for the RTL design file. As netlist and design code have same set of inputs and outputs, we can use the same testbench and compare the waveforms.
 
-The output waveform of the synthesized netlist given below:
-<img width="1200" alt="image" src="https://user-images.githubusercontent.com/110079648/184836440-df2b2348-8e3b-402e-9d00-36b5ca0c22b0.png">
+<img width="956" alt="image" src="https://user-images.githubusercontent.com/110079648/185278249-ebab1137-f668-4008-830e-33053b598396.png">
+
+<img width="1167" alt="image" src="https://user-images.githubusercontent.com/110079648/185278406-2b7c17cd-46fa-4636-a3de-b0f84d06aa1f.png">
+
+
 
 
 
