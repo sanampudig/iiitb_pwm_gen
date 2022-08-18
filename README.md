@@ -67,6 +67,8 @@ $   gtkwave pwm.vcd
 
 ## Functional Characteristics
 
+<img width="1237" alt="image" src="https://user-images.githubusercontent.com/110079648/185279592-9702ac31-2086-4306-af10-21de2ba8df0d.png">
+
 
 Simulation Results while increasing Dutycycle
 <img width="1037" alt="image" src="https://user-images.githubusercontent.com/110079648/185279131-14e40063-f6b1-4b14-8295-ee147363301e.png">
