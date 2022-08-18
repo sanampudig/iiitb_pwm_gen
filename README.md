@@ -66,15 +66,13 @@ $   gtkwave pwm.vcd
 ```
 
 ## Functional Characteristics
+
+
 Simulation Results while increasing Dutycycle
-<p align="center">
-  <img width="800" height="300" src="/Images/incPWM.jpeg">
-</p>
+<img width="1037" alt="image" src="https://user-images.githubusercontent.com/110079648/185279131-14e40063-f6b1-4b14-8295-ee147363301e.png">
 
 Simulation Results while decreasing Dutycycle
-<p align="center">
-  <img width="800" height="300" src="/Images/decPWM.jpeg">
-</p>
+<img width="1248" alt="image" src="https://user-images.githubusercontent.com/110079648/185279340-1f8f628f-98e1-44d6-867d-7fb52bb5387e.png">
 
 
 ### SYNTHESIS
