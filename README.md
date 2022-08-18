@@ -86,7 +86,6 @@ Synthesis takes place in multiple steps:
 - Optimizing the mapped netlist keeping the constraints set by the designer intact.
 
 **Synthesizer**: It is a tool we use to convert out RTL design code to netlist. Yosys is the tool I've used in this project.
-## synthesis of verilog code
 
 #### About Yosys
 Yosys is a framework for Verilog RTL synthesis. It currently has extensive Verilog-2005 support and provides a basic set of synthesis algorithms for various application domains.
@@ -99,25 +98,6 @@ https://github.com/YosysHQ/yosys
 
 Now you need to create a yosys_run.sh file , which is the yosys script file used to run the synthesis.
 The contents of the yosys_run file are given below:
-
-```
-# read design
-
-read_verilog iiitb_pwm_gen.v
-
-# generic synthesis
-synth -top iiitb_pwm_gen
-
-# mapping to mycells.lib
-dfflibmap -liberty /home/svgkr7/Desktop/iiitb_pwm_gen/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
-abc -liberty /home/svgkr7/Desktop/iiitb_pwm_gen/lib/sky130_fd_sc_hd__tt_025C_1v80.lib -script +strash;scorr;ifraig;retime,{D};strash;dch,-f;map,-M,1,{D}
-clean
-flatten
-# write synthesized design
-write_verilog -noattr iiitb_pwm_gen_synth.v
-
-```
-
 
 - note: Identify the .lib file path in cloned folder and change the path in highlighted text to indentified path
 
@@ -140,7 +120,7 @@ $   yosys>    stat
 ```
 $   yosys>    show
 ```
-Now the synthesized netlist is written in "iiitb_rv32i_synth.v" file.
+Now the synthesized netlist is written in "iiitb_pwm_gen_synth.v" file.
 ### GATE LEVEL SIMULATION(GLS)
 GLS is generating the simulation output by running test bench with netlist file generated from synthesis as design under test. Netlist is logically same as RTL code, therefore, same test bench can be used for it.We perform this to verify logical correctness of the design after synthesizing it. Also ensuring the timing of the design is met.
 Folllowing are the commands to run the GLS simulation:
