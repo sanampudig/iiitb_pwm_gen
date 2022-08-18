@@ -4,6 +4,7 @@ module iiitb_pwm_gen_tb;
  reg clk;
  reg increase_duty;
  reg decrease_duty;
+ reg reset;
  // Outputs
  wire PWM_OUT;
  // Instantiate the PWM Generator with variable duty cycle in Verilog
@@ -11,6 +12,7 @@ module iiitb_pwm_gen_tb;
   .clk(clk), 
   .increase_duty(increase_duty), 
   .decrease_duty(decrease_duty), 
+  .reset(reset),
   .PWM_OUT(PWM_OUT)
  );
  // Create 100Mhz clock
@@ -23,8 +25,15 @@ module iiitb_pwm_gen_tb;
     end
  initial begin
  clk = 0;
+ reset=0;
+ 
+
  forever #5 clk = ~clk;
  end 
+initial begin
+#5;reset=1;
+#5;reset =0;
+end
  initial begin
   increase_duty = 0;
   decrease_duty = 0;
@@ -85,4 +94,8 @@ module iiitb_pwm_gen_tb;
   #100;//decrease duty cycle by 10%
     decrease_duty = 0;
  end
+ initial #3000 $finish;
 endmodule
+
+
+
