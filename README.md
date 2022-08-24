@@ -209,10 +209,39 @@ $   cd src/
 $   wget https://raw.githubusercontent.com/sanampudig/iiitb_pwm_gen/main/iiitb_pwm_gen.v
 $   cd ../../../
 $   sudo make mount
-$   
+$   ./flow.tcl -design iiitb_pwm_gen
+```
+<img width="733" alt="image" src="https://user-images.githubusercontent.com/110079648/186494386-7895f02b-1120-435e-92a6-fdc55fe6de3b.png">
 
+To see the layout we use a tool called magic which we installed earlier.
+
+open terminal in home directory
+```
+$   cd OpenLane/designs/iiitb_pwm_gen/run
+$   ls
+```
+select most run directoy from list 
+example:
+<img width="848" alt="image" src="https://user-images.githubusercontent.com/110079648/186496088-a9884959-fb45-49d3-aab2-f7d5447e2f0f.png">
 
 ```
+$   cd cd RUN_2022.08.24_18.20.10
+```
+run following instruction
+```
+$   cd results/final/def
+```
+update the highlited text with appropriate path 
+<img width="1008" alt="image" src="https://user-images.githubusercontent.com/110079648/186496602-1468f119-e922-436e-9324-bc76dfcfa640.png">
+
+```
+$   magic -T /home/parallels/Desktop/OpenLane/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../../tmp/merged.max.lef def read iiitb_pwm_gen.def &
+```
+layout will be open in new window
+#### layout
+
+<img width="889" alt="image" src="https://user-images.githubusercontent.com/110079648/186497274-c053b6a9-33e3-40d1-b94e-8ffb237ddb13.png">
+
 
 
 
@@ -220,7 +249,7 @@ $
 
 
 ## Future work:
-working on **Placing and Routing (PNR)**.
+working on **GLS for post-layout netlist**.
 
 
 
