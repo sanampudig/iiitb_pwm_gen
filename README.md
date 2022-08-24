@@ -203,10 +203,14 @@ $   cd OpenLane/
 $   cd designs/
 $   mkdir iiitb_pwm_gen
 $   cd iiitb_pwm_gen/
+$   wget https://raw.githubusercontent.com/sanampudig/iiitb_pwm_gen/main/config.json
 $   mkdir src
 $   cd src/
 $   wget https://raw.githubusercontent.com/sanampudig/iiitb_pwm_gen/main/iiitb_pwm_gen.v
-$   gedit config.json
+$   cd ../../../
+$   sudo make mount
+$   
+
 
 ```
 
