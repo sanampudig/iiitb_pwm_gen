@@ -172,7 +172,7 @@ Magic is a venerable VLSI layout tool, written in the 1980's at Berkeley by John
 
 More about magic at http://opencircuitdesign.com/magic/index.html
 
-Run folling commands one by one to fulfill the system requirement.
+Run following commands one by one to fulfill the system requirement.
 
 ```
 $   sudo apt-get install m4
@@ -197,7 +197,19 @@ $   sudo make install
 type **magic** terminal to check whether it installed succesfully or not. type **exit** to exit magic.
 
 **Generating Layout**
-goto openlane folder and open termil te
+goto home directory and open terminal there,
+```
+$   cd OpenLane/
+$   cd designs/
+$   mkdir iiitb_pwm_gen
+$   cd iiitb_pwm_gen/
+$   mkdir src
+$   cd src/
+$   wget https://raw.githubusercontent.com/sanampudig/iiitb_pwm_gen/main/iiitb_pwm_gen.v
+$   gedit config.json
+
+```
+
 
 
 
