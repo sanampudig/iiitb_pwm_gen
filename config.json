@@ -1,6 +1,6 @@
 {
-    "DESIGN_NAME": "pwm",
-    "VERILOG_FILES": "dir::src/pwm.v",
+    "DESIGN_NAME": "iiitb_pwm_gen",
+    "VERILOG_FILES": "dir::src/iiitb_pwm_gen.v",
     "CLOCK_PORT": "clk",
     "CLOCK_NET": "clk",
     "FP_SIZING": "absolute",
