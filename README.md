@@ -172,11 +172,34 @@ Magic is a venerable VLSI layout tool, written in the 1980's at Berkeley by John
 
 More about magic at http://opencircuitdesign.com/magic/index.html
 
-Run folling commands one by one to fulfill system requirement.
+Run folling commands one by one to fulfill the system requirement.
 
 ```
 $   sudo apt-get install m4
 $   sudo apt-get install tcsh
+$   sudo apt-get install csh
+$   sudo apt-get install libx11-dev
+$   sudo apt-get install tcl-dev tk-dev
+$   sudo apt-get install libcairo2-dev
+$   sudo apt-get install mesa-common-dev libglu1-mesa-dev
+$   sudo apt-get install libncurses-dev
+```
+**To install magic**
+goto home directory
+
+```
+$   git clone https://github.com/RTimothyEdwards/magic
+$   cd magic/
+$   ./configure
+$   sudo make
+$   sudo make install
+```
+type **magic** terminal to check whether it installed succesfully or not. type **exit** to exit magic.
+
+**Generating Layout**
+goto openlane folder and open termil te
+
+
 
 
 
