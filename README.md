@@ -143,6 +143,43 @@ Simulation Results while decreasing Dutycycle
 
 #### Observation:
 Output characteristics of Functional simulation is matched with output of Gate Level Simulation. 
+
+## Final Layout
+#### Openlane
+OpenLane is an automated RTL to GDSII flow based on several components including OpenROAD, Yosys, Magic, Netgen, CVC, SPEF-Extractor, CU-GR, Klayout and a number of custom scripts for design exploration and optimization. The flow performs full ASIC implementation steps from RTL all the way down to GDSII.
+
+more at https://github.com/The-OpenROAD-Project/OpenLane
+#### Installation instructions 
+```
+$   apt install -y build-essential python3 python3-venv python3-pip
+```
+Docker installation process: https://docs.docker.com/engine/install/ubuntu/
+
+goto home directory->
+```
+$   git clone https://github.com/The-OpenROAD-Project/OpenLane.git
+$   cd OpenLane/
+$   sudo make
+```
+To test the open lane
+```
+$ sudo make test
+```
+It take approximate time of 5min to complete. After 43 steps, if it ended with saying **Basic test passed** then open lane installed succesfully.
+
+#### Magic
+Magic is a venerable VLSI layout tool, written in the 1980's at Berkeley by John Ousterhout, now famous primarily for writing the scripting interpreter language Tcl. Due largely in part to its liberal Berkeley open-source license, magic has remained popular with universities and small companies. The open-source license has allowed VLSI engineers with a bent toward programming to implement clever ideas and help magic stay abreast of fabrication technology. However, it is the well thought-out core algorithms which lend to magic the greatest part of its popularity. Magic is widely cited as being the easiest tool to use for circuit layout, even for people who ultimately rely on commercial tools for their product design flow.
+
+More about magic at http://opencircuitdesign.com/magic/index.html
+
+Run folling commands one by one to fulfill system requirement.
+
+```
+$   sudo apt-get install m4
+$   sudo apt-get install tcsh
+
+
+
 ## Future work:
 working on **Placing and Routing (PNR)**.
 
