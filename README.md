@@ -223,6 +223,8 @@ $   cd OpenLane/designs/iiitb_pwm_gen/run
 $   ls
 ```
 select most run directoy from list 
+
+
 example:
 <img width="848" alt="image" src="https://user-images.githubusercontent.com/110079648/186496088-a9884959-fb45-49d3-aab2-f7d5447e2f0f.png">
 
