@@ -227,7 +227,7 @@ example:
 <img width="848" alt="image" src="https://user-images.githubusercontent.com/110079648/186496088-a9884959-fb45-49d3-aab2-f7d5447e2f0f.png">
 
 ```
-$   cd cd RUN_2022.08.24_18.20.10
+$  cd RUN_2022.08.24_18.20.10
 ```
 run following instruction
 ```
