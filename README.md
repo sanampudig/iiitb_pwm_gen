@@ -244,7 +244,7 @@ $   magic -T /home/parallels/Desktop/OpenLane/pdks/sky130A/libs.tech/magic/sky13
 layout will be open in new window
 #### layout - without sky130_vsdinv
 
-<img width=“889” alt=“image” src=“https://user-images.githubusercontent.com/110079648/186497274-c053b6a9-33e3-40d1-b94e-8ffb237ddb13.png”>
+<img width="1404" alt="image" src="https://user-images.githubusercontent.com/110079648/187451636-8cc1c492-ef3a-45d4-9466-2790b02bf80f.png">
 
 ### sky130_vsdinv cell creation
 
@@ -408,6 +408,20 @@ sky130_vsdinv _ _172_ _
 <img width="1262" alt="image" src="https://user-images.githubusercontent.com/110079648/187447519-0028b1fa-bfb5-4360-bef3-ab980b24bd15.png">
 
 <img width="543" alt="image" src="https://user-images.githubusercontent.com/110079648/187447979-27aaaeb0-1da4-41df-aaaa-df5e17e0e976.png">
+
+
+### Reports
+
+<img width="365" alt="image" src="https://user-images.githubusercontent.com/110079648/187456325-b861497f-b683-4532-a0dd-ae74932f3210.png">
+
+<img width="282" alt="image" src="https://user-images.githubusercontent.com/110079648/187456402-e3dc80ec-0413-43dd-8dc1-de23ab4aa120.png">
+
+<img width="652" alt="image" src="https://user-images.githubusercontent.com/110079648/187456862-d3c4ea27-ad68-4ee0-9dcb-c61a1db4877c.png">
+
+<img width="321" alt="image" src="https://user-images.githubusercontent.com/110079648/187457004-a00ceb95-83bc-48d7-bf4a-0c1d138e3bcf.png">
+
+
+
 
 
 
