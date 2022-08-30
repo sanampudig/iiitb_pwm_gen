@@ -561,6 +561,7 @@ working on **GLS for post-layout netlist**.
 
 
 - Kunal Ghosh, Director, VSD Corp. Pvt. Ltd.
+- Nickson Jose, SoC Physical Design Engineer, Intel.
 - Vinay Rayapati, Postgraduate Student, International Institute of Information Technology, Bangalore
 - Gogireddy Ravi Kiran Reddy, Postgraduate Student, International Institute of Information Technology, Bangalore
 
