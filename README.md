@@ -4,13 +4,15 @@ This project simulates the designed Pulse Width Modulated Wave Generator with Va
 
 *Note: Circuit requires further optimization to improve performance. Design yet to be modified.*
 
-## Introduction
+-[1.Introduction to PWM Generator](1.Introduction-to-PWM-Generator)
+
+## 1.Introduction to PWM Generator
 Pulse Width Modulation is a famous technique used to create modulated electronic pulses of the desired width. The duty cycle is the ratio of how long that PWM signal stays at the high position to the total time period.
 <p align="center">
   <img width="800" height="500" src="/Images/pwm.jpeg">
 </p>
 
-## Applications
+## 2.Applications
 
 Pulse Width Modulated Wave Generator can be used to 
 
@@ -20,7 +22,7 @@ Pulse Width Modulated Wave Generator can be used to
 - encode messages in telecommunication
 - used in speed controlers of motors
 
-## Blocked Diagram of PWM GENERATOR
+## 3.Blocked Diagram of PWM GENERATOR
 
 This PWM generator generates 10Mhz signal. We can control duty cycles in steps of 10%. The default duty cycle is 50%. Along with clock signal we provide another two external signals to increase and decrease the duty cycle.
 
@@ -38,12 +40,13 @@ As counter starts at zero, initially comparator gives high output and when count
 
 As the comparator is a combinational circuit and the counter is sequential, while counting from 011 to 100 due to improper delays there might be an intermediate state like 111 which might be higher or lower than duty. This might cause a glitch. To avoid these glitches output of the comparator is passed through a D flipflop.
 
-## About iverilog 
+## 4.Functional Simulation
+### 4.1 About iverilog 
 Icarus Verilog is an implementation of the Verilog hardware description language.
-## About GTKWave
+## 4.2 About GTKWave
 GTKWave is a fully featured GTK+ v1. 2 based wave viewer for Unix and Win32 which reads Ver Structural Verilog Compiler generated AET files as well as standard Verilog VCD/EVCD files and allows their viewing
 
-### Installing iverilog and GTKWave
+### 4.3 Installing iverilog and GTKWave
 
 #### For Ubuntu
 
@@ -54,7 +57,7 @@ $   sudo apt-get install iverilog gtkwave
 ```
 
 
-### Functional Simulation
+### 4.4 Functional Simulation Process
 To clone the Repository and download the Netlist files for Simulation, enter the following commands in your terminal.
 ```
 $   sudo apt install -y git
@@ -65,7 +68,7 @@ $   ./a.out
 $   gtkwave pwm.vcd
 ```
 
-## Functional Characteristics
+### 4.5 Functional Characteristics
 
 <img width="1237" alt="image" src="https://user-images.githubusercontent.com/110079648/185279592-9702ac31-2086-4306-af10-21de2ba8df0d.png">
 
@@ -77,13 +80,16 @@ Simulation Results while decreasing Dutycycle
 <img width="1248" alt="image" src="https://user-images.githubusercontent.com/110079648/185279340-1f8f628f-98e1-44d6-867d-7fb52bb5387e.png">
 
 
-### SYNTHESIS
+## 5.SYNTHESIS
+### 5.1 About Synthesys
 **Synthesis**: Synthesis transforms the simple RTL design into a gate-level netlist with all the constraints as specified by the designer. In simple language, Synthesis is a process that converts the abstract form of design to a properly implemented chip in terms of logic gates.
 
 Synthesis takes place in multiple steps:
 - Converting RTL into simple logic gates.
 - Mapping those gates to actual technology-dependent logic gates available in the technology libraries.
 - Optimizing the mapped netlist keeping the constraints set by the designer intact.
+
+### 5.2 Synthesizer
 
 **Synthesizer**: It is a tool we use to convert out RTL design code to netlist. Yosys is the tool I've used in this project.
 
@@ -121,8 +127,13 @@ $   yosys>    stat
 $   yosys>    show
 ```
 Now the synthesized netlist is written in "iiitb_pwm_gen_synth.v" file.
-### GATE LEVEL SIMULATION(GLS)
+
+
+
+## 6.GATE LEVEL SIMULATION(GLS)
+### 6.1 About GLS
 GLS is generating the simulation output by running test bench with netlist file generated from synthesis as design under test. Netlist is logically same as RTL code, therefore, same test bench can be used for it.We perform this to verify logical correctness of the design after synthesizing it. Also ensuring the timing of the design is met.
+### 6.2 Running GLS
 Folllowing are the commands to run the GLS simulation:
 ```
 iverilog -DFUNCTIONAL -DUNIT_DELAY=#1 ../verilog_model/primitives.v ../verilog_model/sky130_fd_sc_hd.v iiitb_pwm_gen_synth.v iiitb_pwm_gen_tb.v
@@ -141,19 +152,19 @@ Simulation Results while decreasing Dutycycle
 
 <img width="1167" alt="image" src="https://user-images.githubusercontent.com/110079648/185278406-2b7c17cd-46fa-4636-a3de-b0f84d06aa1f.png">
 
-#### Observation:
+### 6.3 Observations from GLS Waveforms:
 Output characteristics of Functional simulation is matched with output of Gate Level Simulation. 
 
-## PHYSICAL DESIGN
+## 7.PHYSICAL DESIGN
 
-### 7 . 1 Overview of Physical Design flow
+### 7.1 Overview of Physical Design flow
 Place and Route (PnR) is the core of any ASIC implementation and Openlane flow integrates into it several key open source tools which perform each of the respective stages of PnR.
 Below are the stages and the respective tools that are called by openlane for the functionalities as described:
 
 ![image](https://user-images.githubusercontent.com/110079648/187492890-1c91bb6d-596e-47da-b4c6-592d25bbec10.png)
 
 
-### Opensource EDA tools
+### 7.2 Opensource EDA tools
 
 OpenLANE utilises a variety of opensource tools in the execution of the ASIC flow:
 Task | Tool/s
@@ -201,7 +212,7 @@ Circuit validity checker | [CVC](https://github.com/d-m-bailey/cvc)
 	- `CVC` - Performs Circuit Validity Checks
 
   - 
-#### Openlane
+### 7.3 Openlane
 OpenLane is an automated RTL to GDSII flow based on several components including OpenROAD, Yosys, Magic, Netgen, CVC, SPEF-Extractor, CU-GR, Klayout and a number of custom scripts for design exploration and optimization. The flow performs full ASIC implementation steps from RTL all the way down to GDSII.
 
 more at https://github.com/The-OpenROAD-Project/OpenLane
@@ -223,7 +234,7 @@ $ sudo make test
 ```
 It takes approximate time of 5min to complete. After 43 steps, if it ended with saying **Basic test passed** then open lane installed succesfully.
 
-#### Magic
+### 7.4 Magic
 Magic is a venerable VLSI layout tool, written in the 1980's at Berkeley by John Ousterhout, now famous primarily for writing the scripting interpreter language Tcl. Due largely in part to its liberal Berkeley open-source license, magic has remained popular with universities and small companies. The open-source license has allowed VLSI engineers with a bent toward programming to implement clever ideas and help magic stay abreast of fabrication technology. However, it is the well thought-out core algorithms which lend to magic the greatest part of its popularity. Magic is widely cited as being the easiest tool to use for circuit layout, even for people who ultimately rely on commercial tools for their product design flow.
 
 More about magic at http://opencircuitdesign.com/magic/index.html
@@ -252,7 +263,7 @@ $   sudo make install
 ```
 type **magic** terminal to check whether it installed succesfully or not. type **exit** to exit magic.
 
-**Generating Layout with existing library cells**
+### 7.5 Generating Layout with existing library cells
 
 
 Open terminal in home directory
@@ -302,7 +313,8 @@ layout will be open in new window
 
 <img width="1404" alt="image" src="https://user-images.githubusercontent.com/110079648/187451636-8cc1c492-ef3a-45d4-9466-2790b02bf80f.png">
 
-### sky130_vsdinv cell creation
+### 7.6 Customizing the layout
+#### sky130_vsdinv cell creation
 
 Lets design a custom cell and include in library and get it in final layout.
 clone the vsdcelldesign repo using following command
@@ -320,11 +332,11 @@ copy sky130A.tech to vsdstdcelldesign directory
 $ magic -T sky130A.tech sky130_inv.mag 
 ```
 
-**layout of inverter cell**
+#### layout of inverter cell
 
 <img width="1401" alt="image" src="https://user-images.githubusercontent.com/110079648/187430540-b10c0584-7e3a-42d0-a8ac-1829bdf1ef0b.png">
 
-**Generating lef file**
+#### Generating lef file
 
 in tkcon terminal type the following command to generate **.lef** file
 
@@ -339,7 +351,7 @@ Also copy lib files from vsdcelldesign/libs to designs/iiit_pwm_gen/src
 
 <img width="1396" alt="image" src="https://user-images.githubusercontent.com/110079648/187434252-1ef1d250-157d-4298-b24b-4b350fd1cba7.png">
 
-### Generating Layout which inculdes custom made **sky130_vsdinv**
+### 7.7 Generating Layout which inculdes custom made **sky130_vsdinv**
 
 #### invkoing openlane
 
@@ -390,13 +402,13 @@ to synthesize the code run the following command
 ```
 <img width="743" alt="image" src="https://user-images.githubusercontent.com/110079648/187439336-5be0c15d-df77-42c3-97d8-21ebbf28467e.png">
 
-**Statistics** after synthesis
+#### Statistics** after synthesis
 
-pre synthesis stat
+> pre synthesis stat
 
 <img width="373" alt="image" src="https://user-images.githubusercontent.com/110079648/187439837-22cd4173-e0b6-4d4a-bab7-567392bd574b.png">
 
-post synthesis stat
+> post synthesis stat
 
 <img width="529" alt="image" src="https://user-images.githubusercontent.com/110079648/187440444-cbe120f0-c496-43b7-a801-d68904cb3907.png">
 
@@ -459,7 +471,7 @@ run the following command to run the routing
 <img width="1400" alt="image" src="https://user-images.githubusercontent.com/110079648/187444803-1776099a-ebcc-422b-a0ac-a723d93c0eb6.png">
 
 
-### Identifing custom made **sky130_vsdinv**
+### 7.8 Identifing custom made **sky130_vsdinv**
 
 in tkcon type the follow command to check where sky130_vsdinv exist or not
 ```
@@ -490,7 +502,7 @@ sky130_vsdinv _ _172_ _
 <img width="543" alt="image" src="https://user-images.githubusercontent.com/110079648/187447979-27aaaeb0-1da4-41df-aaaa-df5e17e0e976.png">
 
 
-### Reports
+### 7.9 Reports
 
 <img width="365" alt="image" src="https://user-images.githubusercontent.com/110079648/187456325-b861497f-b683-4532-a0dd-ae74932f3210.png">
 
@@ -534,31 +546,31 @@ sky130_vsdinv _ _172_ _
 
 
 
-## Future work:
+## 8.Future work:
 working on **GLS for post-layout netlist**.
 
 
 
 
-## Contributors 
+## 9.Contributors 
 
 - **Sanampudi Gopala Krishna Reddy** 
 - **Kunal Ghosh** 
 
 
 
-## Acknowledgments
+## 10.Acknowledgments
 
 
 - Kunal Ghosh, Director, VSD Corp. Pvt. Ltd.
 - Vinay Rayapati, Postgraduate Student, International Institute of Information Technology, Bangalore
 - Gogireddy Ravi Kiran Reddy, Postgraduate Student, International Institute of Information Technology, Bangalore
 
-## Contact Information
+## 11.Contact Information
 
 - Sanampudi Gopala Krishna Reddy, Postgraduate Student, International Institute of Information Technology, Bangalore  svgkr7@gmail.com
 - Kunal Ghosh, Director, VSD Corp. Pvt. Ltd. kunalghosh@gmail.com
 
-## References:
+## 12.References:
 - FPGA4Student
  https://www.fpga4student.com/2017/08/verilog-code-for-pwm-generator.html
