@@ -145,6 +145,33 @@ Simulation Results while decreasing Dutycycle
 Output characteristics of Functional simulation is matched with output of Gate Level Simulation. 
 
 ## PHYSICAL DESIGN
+
+### 7 . 1 Overview of Physical Design flow
+Place and Route (PnR) is the core of any ASIC implementation and Openlane flow integrates into it several key open source tools which perform each of the respective stages of PnR.
+Below are the stages and the respective tools that are called by openlane for the functionalities as described:
+
+![image](https://user-images.githubusercontent.com/110079648/187492890-1c91bb6d-596e-47da-b4c6-592d25bbec10.png)
+
+
+- Synthesis
+  - Generating gate-level netlist ([yosys](https://github.com/YosysHQ/yosys)).
+  - Performing cell mapping ([abc](https://github.com/YosysHQ/yosys)).
+  - Performing pre-layout STA ([OpenSTA](https://github.com/The-OpenROAD-Project/OpenSTA)).
+- Floorplanning
+  - Defining the core area for the macro as well as the cell sites and the tracks ([init_fp](https://github.com/The-OpenROAD-Project/OpenROAD/tree/master/src/init_fp)).
+  - Placing the macro input and output ports ([ioplacer](https://github.com/The-OpenROAD-Project/ioPlacer/)).
+  - Generating the power distribution network ([pdn](https://github.com/The-OpenROAD-Project/pdn/)).
+- Placement
+  - Performing global placement ([RePLace](https://github.com/The-OpenROAD-Project/RePlAce)).
+  - Perfroming detailed placement to legalize the globally placed components ([OpenDP](https://github.com/The-OpenROAD-Project/OpenDP)).
+- Clock Tree Synthesis (CTS)
+  - Synthesizing the clock tree ([TritonCTS](https://github.com/The-OpenROAD-Project/OpenROAD/tree/master/src/TritonCTS)).
+- Routing
+  - Performing global routing to generate a guide file for the detailed router ([FastRoute](https://github.com/The-OpenROAD-Project/FastRoute/tree/openroad)).
+  - Performing detailed routing ([TritonRoute](https://github.com/The-OpenROAD-Project/TritonRoute))
+- GDSII Generation
+  - Streaming out the final GDSII layout file from the routed def ([Magic](https://github.com/RTimothyEdwards/magic)).
+  - 
 #### Openlane
 OpenLane is an automated RTL to GDSII flow based on several components including OpenROAD, Yosys, Magic, Netgen, CVC, SPEF-Extractor, CU-GR, Klayout and a number of custom scripts for design exploration and optimization. The flow performs full ASIC implementation steps from RTL all the way down to GDSII.
 
@@ -321,7 +348,12 @@ Include the below command to include the additional lef (i.e sky130_vsdinv) into
 ```
 <img width="747" alt="image" src="https://user-images.githubusercontent.com/110079648/187438840-95daa5e5-140d-45f4-b5d0-4752660d5fb6.png">
 
-#### Running Synthesis
+#### Synthesis
+Logic synthesis uses the RTL netlist to perform HDL technology mapping. The synthesis process is normally performed in two major steps:
+
+- GTECH Mapping – Consists of mapping the HDL netlist to generic gates what are used to perform logical optimization based on AIGERs and other topologies created from the generic mapped netlist.
+
+- Technology Mapping – Consists of mapping the post-optimized GTECH netlist to standard cells described in the PDK
 
 to synthesize the code run the following command
 ```
@@ -339,7 +371,10 @@ post synthesis stat
 
 <img width="529" alt="image" src="https://user-images.githubusercontent.com/110079648/187440444-cbe120f0-c496-43b7-a801-d68904cb3907.png">
 
-#### Running Floorplan
+#### Floorplan
+
+Goal is to plan the silicon area and create a robust power distribution network (PDN) to power each of the individual components of the synthesized netlist. In addition, macro placement and blockages must be defined before placement occurs to ensure a legalized GDS file. In power planning we create the ring which is connected to the pads which brings power around the edges of the chip. We also include power straps to bring power to the middle of the chip using higher metal layers which reduces IR drop and electro-migration problem.
+
 run the folliwing command to run floorplan
 
 ```
@@ -352,7 +387,9 @@ run the folliwing command to run floorplan
 
 <img width="1034" alt="image" src="https://user-images.githubusercontent.com/110079648/187441298-2b97c006-d5c4-4574-9187-0006c24add4c.png">
 
-#### Running Placement
+#### Placement
+Place the standard cells on the floorplane rows, aligned with sites defined in the technology lef file. Placement is done in two steps: Global and Detailed. In Global placement tries to find optimal position for all cells but they may be overlapping and not aligned to rows, detailed placement takes the global placement and legalizes all of the placements trying to adhere to what the global placement wants.
+
 run the following command to run the placement
 
 ```
@@ -364,7 +401,21 @@ run the following command to run the placement
 
 <img width="1091" alt="image" src="https://user-images.githubusercontent.com/110079648/187442955-3044bdd4-d194-4436-a07b-5aafb8ad4113.png">
 
-#### Running Routing
+
+#### CTS
+
+Clock tree synteshsis is used to create the clock distribution network that is used to deliver the clock to all sequential elements. The main goal is to create a network with minimal skew across the chip. H-trees are a common network topology that is used to achieve this goal.
+
+run the following command to perform CTS
+```
+% run_cts
+```
+
+
+#### Routing
+
+Implements the interconnect system between standard cells using the remaining available metal layers after CTS and PDN generation. The routing is performed on routing grids to ensure minimal DRC errors.
+
 run the following command to run the routing
 
 ```
