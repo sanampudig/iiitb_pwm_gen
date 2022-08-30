@@ -4,16 +4,46 @@ This project simulates the designed Pulse Width Modulated Wave Generator with Va
 
 *Note: Circuit requires further optimization to improve performance. Design yet to be modified.*
 
-- [1.Introduction to PWM Generator](1.Introduction-to-PWM-Generator)
-- [12.References](#12-References)
+- [1. Introduction to PWM Generator](1-Introduction-to-PWM-Generator)
+- [2. Applications]()
+- [3. Blocked Diagram of PWM GENERATOR]()
+- [4. Functional Simulation]()
+  - [4.1 About iverilog]()
+  - [4.2 About GTKWave]()
+  - [4.3 Installing iverilog and GTKWave]()
+  - [4.4 Functional Simulation Process]()
+  - [4.5 Functional Characteristics]()
+- [5. SYNTHESIS]()
+  - [5.1 About Synthesys]()
+  - [5.2 Synthesizer]()
+- [6. GATE LEVEL SIMULATION(GLS)]()
+  - [6.1 About GLS]()
+  - [6.2 Running GLS]()
+  - [6.3 Observations from GLS Waveforms:]()
+- [7. PHYSICAL DESIGN]()
+  - [7.1 Overview of Physical Design flow]()
+  - [7.2 Opensource EDA tools]()
+  - [7.3 Openlane]()
+  - [7.4 Magic]()
+  - [7.5 Generating Layout with existing library cells]()
+  - [7.6 Customizing the layout]()
+  - [7.7 Generating Layout which inculdes custom made sky130_vsdinv]()
+  - [7.8 Identifing custom made sky130_vsdinv]()
+  - [7.9 Reports]()
+- [8. Future work:]()
+- [9. Contributors ]()
+- [10. Acknowledgments]()
+- [11. Contact Information]()
+- 
+- [12. References](#12-References)
 
-## 1.Introduction to PWM Generator
+## 1. Introduction to PWM Generator
 Pulse Width Modulation is a famous technique used to create modulated electronic pulses of the desired width. The duty cycle is the ratio of how long that PWM signal stays at the high position to the total time period.
 <p align="center">
   <img width="800" height="500" src="/Images/pwm.jpeg">
 </p>
 
-## 2.Applications
+## 2. Applications
 
 Pulse Width Modulated Wave Generator can be used to 
 
@@ -23,7 +53,7 @@ Pulse Width Modulated Wave Generator can be used to
 - encode messages in telecommunication
 - used in speed controlers of motors
 
-## 3.Blocked Diagram of PWM GENERATOR
+## 3. Blocked Diagram of PWM GENERATOR
 
 This PWM generator generates 10Mhz signal. We can control duty cycles in steps of 10%. The default duty cycle is 50%. Along with clock signal we provide another two external signals to increase and decrease the duty cycle.
 
@@ -41,7 +71,7 @@ As counter starts at zero, initially comparator gives high output and when count
 
 As the comparator is a combinational circuit and the counter is sequential, while counting from 011 to 100 due to improper delays there might be an intermediate state like 111 which might be higher or lower than duty. This might cause a glitch. To avoid these glitches output of the comparator is passed through a D flipflop.
 
-## 4.Functional Simulation
+## 4. Functional Simulation
 ### 4.1 About iverilog 
 Icarus Verilog is an implementation of the Verilog hardware description language.
 ## 4.2 About GTKWave
@@ -81,7 +111,7 @@ Simulation Results while decreasing Dutycycle
 <img width="1248" alt="image" src="https://user-images.githubusercontent.com/110079648/185279340-1f8f628f-98e1-44d6-867d-7fb52bb5387e.png">
 
 
-## 5.SYNTHESIS
+## 5. SYNTHESIS
 ### 5.1 About Synthesys
 **Synthesis**: Synthesis transforms the simple RTL design into a gate-level netlist with all the constraints as specified by the designer. In simple language, Synthesis is a process that converts the abstract form of design to a properly implemented chip in terms of logic gates.
 
@@ -131,7 +161,7 @@ Now the synthesized netlist is written in "iiitb_pwm_gen_synth.v" file.
 
 
 
-## 6.GATE LEVEL SIMULATION(GLS)
+## 6. GATE LEVEL SIMULATION(GLS)
 ### 6.1 About GLS
 GLS is generating the simulation output by running test bench with netlist file generated from synthesis as design under test. Netlist is logically same as RTL code, therefore, same test bench can be used for it.We perform this to verify logical correctness of the design after synthesizing it. Also ensuring the timing of the design is met.
 ### 6.2 Running GLS
@@ -153,10 +183,10 @@ Simulation Results while decreasing Dutycycle
 
 <img width="1167" alt="image" src="https://user-images.githubusercontent.com/110079648/185278406-2b7c17cd-46fa-4636-a3de-b0f84d06aa1f.png">
 
-### 6.3 Observations from GLS Waveforms:
+### 6.3 Observations from GLS Waveforms
 Output characteristics of Functional simulation is matched with output of Gate Level Simulation. 
 
-## 7.PHYSICAL DESIGN
+## 7. PHYSICAL DESIGN
 
 ### 7.1 Overview of Physical Design flow
 Place and Route (PnR) is the core of any ASIC implementation and Openlane flow integrates into it several key open source tools which perform each of the respective stages of PnR.
@@ -352,7 +382,7 @@ Also copy lib files from vsdcelldesign/libs to designs/iiit_pwm_gen/src
 
 <img width="1396" alt="image" src="https://user-images.githubusercontent.com/110079648/187434252-1ef1d250-157d-4298-b24b-4b350fd1cba7.png">
 
-### 7.7 Generating Layout which inculdes custom made **sky130_vsdinv**
+### 7.7 Generating Layout which inculdes custom made sky130_vsdinv
 
 #### invkoing openlane
 
@@ -472,7 +502,7 @@ run the following command to run the routing
 <img width="1400" alt="image" src="https://user-images.githubusercontent.com/110079648/187444803-1776099a-ebcc-422b-a0ac-a723d93c0eb6.png">
 
 
-### 7.8 Identifing custom made **sky130_vsdinv**
+### 7.8 Identifing custom made sky130_vsdinv
 
 in tkcon type the follow command to check where sky130_vsdinv exist or not
 ```
@@ -515,63 +545,31 @@ sky130_vsdinv _ _172_ _
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## 8.Future work:
+## 8. Future work:
 working on **GLS for post-layout netlist**.
 
 
 
 
-## 9.Contributors 
+## 9. Contributors 
 
 - **Sanampudi Gopala Krishna Reddy** 
 - **Kunal Ghosh** 
 
 
 
-## 10.Acknowledgments
+## 10. Acknowledgments
 
 
 - Kunal Ghosh, Director, VSD Corp. Pvt. Ltd.
 - Vinay Rayapati, Postgraduate Student, International Institute of Information Technology, Bangalore
 - Gogireddy Ravi Kiran Reddy, Postgraduate Student, International Institute of Information Technology, Bangalore
 
-## 11.Contact Information
+## 11. Contact Information
 
 - Sanampudi Gopala Krishna Reddy, Postgraduate Student, International Institute of Information Technology, Bangalore  svgkr7@gmail.com
 - Kunal Ghosh, Director, VSD Corp. Pvt. Ltd. kunalghosh@gmail.com
 
-## 12.References
+## 12. References
 - FPGA4Student
  https://www.fpga4student.com/2017/08/verilog-code-for-pwm-generator.html
