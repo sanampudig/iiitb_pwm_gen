@@ -392,11 +392,17 @@ in tkcon type the follow command to check where sky130_vsdinv exist or not
 Seven sky130_vsdinv cells present in design
 
 sky130_vsdinv _ _138_ _
+
 sky130_vsdinv _ _158_ _
+
 sky130_vsdinv _ _167_ _
+
 sky130_vsdinv _ _169_ _
+
 sky130_vsdinv _ _170_ _
+
 sky130_vsdinv _ _171_ _
+
 sky130_vsdinv _ _172_ _
 
 <img width="1262" alt="image" src="https://user-images.githubusercontent.com/110079648/187447519-0028b1fa-bfb5-4360-bef3-ab980b24bd15.png">
