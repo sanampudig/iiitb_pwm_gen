@@ -30,10 +30,10 @@ This project simulates the designed Pulse Width Modulated Wave Generator with Va
   - [7.7 Generating Layout which inculdes custom made sky130_vsdinv](#77-Generating-Layout-which-inculdes-custom-made-sky130_vsdinv)
   - [7.8 Identifing custom made sky130_vsdinv](#78-Identifing-custom-made-sky130_vsdinv)
   - [7.9 Reports](#79-Reports)
-- [8. Future work](8-Future-work)
-- [9. Contributors ](9-Contributors)
-- [10. Acknowledgments](10-Acknowledgments)
-- [11. Contact Information](11-Contact-Information)
+- [8. Future work](#8-Future-work)
+- [9. Contributors ](#9-Contributors)
+- [10. Acknowledgments](#10-Acknowledgments)
+- [11. Contact Information](#11-Contact-Information)
 - [12. References](#12-References)
 
 ## 1. Introduction to PWM Generator
