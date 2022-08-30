@@ -73,7 +73,7 @@ As the comparator is a combinational circuit and the counter is sequential, whil
 ## 4. Functional Simulation
 ### 4.1 About iverilog 
 Icarus Verilog is an implementation of the Verilog hardware description language.
-## 4.2 About GTKWave
+### 4.2 About GTKWave
 GTKWave is a fully featured GTK+ v1. 2 based wave viewer for Unix and Win32 which reads Ver Structural Verilog Compiler generated AET files as well as standard Verilog VCD/EVCD files and allows their viewing
 
 ### 4.3 Installing iverilog and GTKWave
