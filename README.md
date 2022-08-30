@@ -153,24 +153,53 @@ Below are the stages and the respective tools that are called by openlane for th
 ![image](https://user-images.githubusercontent.com/110079648/187492890-1c91bb6d-596e-47da-b4c6-592d25bbec10.png)
 
 
-- Synthesis
-  - Generating gate-level netlist ([yosys](https://github.com/YosysHQ/yosys)).
-  - Performing cell mapping ([abc](https://github.com/YosysHQ/yosys)).
-  - Performing pre-layout STA ([OpenSTA](https://github.com/The-OpenROAD-Project/OpenSTA)).
-- Floorplanning
-  - Defining the core area for the macro as well as the cell sites and the tracks ([init_fp](https://github.com/The-OpenROAD-Project/OpenROAD/tree/master/src/init_fp)).
-  - Placing the macro input and output ports ([ioplacer](https://github.com/The-OpenROAD-Project/ioPlacer/)).
-  - Generating the power distribution network ([pdn](https://github.com/The-OpenROAD-Project/pdn/)).
-- Placement
-  - Performing global placement ([RePLace](https://github.com/The-OpenROAD-Project/RePlAce)).
-  - Perfroming detailed placement to legalize the globally placed components ([OpenDP](https://github.com/The-OpenROAD-Project/OpenDP)).
-- Clock Tree Synthesis (CTS)
-  - Synthesizing the clock tree ([TritonCTS](https://github.com/The-OpenROAD-Project/OpenROAD/tree/master/src/TritonCTS)).
-- Routing
-  - Performing global routing to generate a guide file for the detailed router ([FastRoute](https://github.com/The-OpenROAD-Project/FastRoute/tree/openroad)).
-  - Performing detailed routing ([TritonRoute](https://github.com/The-OpenROAD-Project/TritonRoute))
-- GDSII Generation
-  - Streaming out the final GDSII layout file from the routed def ([Magic](https://github.com/RTimothyEdwards/magic)).
+### Opensource EDA tools
+
+OpenLANE utilises a variety of opensource tools in the execution of the ASIC flow:
+Task | Tool/s
+------------ | -------------
+RTL Synthesis & Technology Mapping | [yosys](https://github.com/YosysHQ/yosys), abc
+Floorplan & PDN | init_fp, ioPlacer, pdn and tapcell
+Placement | RePLace, Resizer, OpenPhySyn & OpenDP
+Static Timing Analysis | [OpenSTA](https://github.com/The-OpenROAD-Project/OpenSTA)
+Clock Tree Synthesis | [TritonCTS](https://github.com/The-OpenROAD-Project/OpenLane)
+Routing | FastRoute and [TritonRoute](https://github.com/The-OpenROAD-Project/TritonRoute) 
+SPEF Extraction | [SPEF-Extractor](https://github.com/HanyMoussa/SPEF_EXTRACTOR)
+DRC Checks, GDSII Streaming out | [Magic](https://github.com/RTimothyEdwards/magic), [Klayout](https://github.com/KLayout/klayout)
+LVS check | [Netgen](https://github.com/RTimothyEdwards/netgen)
+Circuit validity checker | [CVC](https://github.com/d-m-bailey/cvc)
+
+#### OpenLANE design stages
+
+1. Synthesis
+	- `yosys` - Performs RTL synthesis
+	- `abc` - Performs technology mapping
+	- `OpenSTA` - Performs static timing analysis on the resulting netlist to generate timing reports
+2. Floorplan and PDN
+	- `init_fp` - Defines the core area for the macro as well as the rows (used for placement) and the tracks (used for routing)
+	- `ioplacer` - Places the macro input and output ports
+	- `pdn` - Generates the power distribution network
+	- `tapcell` - Inserts welltap and decap cells in the floorplan
+3. Placement
+	- `RePLace` - Performs global placement
+	- `Resizer` - Performs optional optimizations on the design
+	- `OpenDP` - Perfroms detailed placement to legalize the globally placed components
+4. CTS
+	- `TritonCTS` - Synthesizes the clock distribution network (the clock tree)
+5. Routing
+	- `FastRoute` - Performs global routing to generate a guide file for the detailed router
+	- `CU-GR` - Another option for performing global routing.
+	- `TritonRoute` - Performs detailed routing
+	- `SPEF-Extractor` - Performs SPEF extraction
+6. GDSII Generation
+	- `Magic` - Streams out the final GDSII layout file from the routed def
+	- `Klayout` - Streams out the final GDSII layout file from the routed def as a back-up
+7. Checks
+	- `Magic` - Performs DRC Checks & Antenna Checks
+	- `Klayout` - Performs DRC Checks
+	- `Netgen` - Performs LVS Checks
+	- `CVC` - Performs Circuit Validity Checks
+
   - 
 #### Openlane
 OpenLane is an automated RTL to GDSII flow based on several components including OpenROAD, Yosys, Magic, Netgen, CVC, SPEF-Extractor, CU-GR, Klayout and a number of custom scripts for design exploration and optimization. The flow performs full ASIC implementation steps from RTL all the way down to GDSII.
