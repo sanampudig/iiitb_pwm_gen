@@ -4,37 +4,36 @@ This project simulates the designed Pulse Width Modulated Wave Generator with Va
 
 *Note: Circuit requires further optimization to improve performance. Design yet to be modified.*
 
-- [1. Introduction to PWM Generator](1-Introduction-to-PWM-Generator)
-- [2. Applications]()
-- [3. Blocked Diagram of PWM GENERATOR]()
-- [4. Functional Simulation]()
-  - [4.1 About iverilog]()
-  - [4.2 About GTKWave]()
-  - [4.3 Installing iverilog and GTKWave]()
-  - [4.4 Functional Simulation Process]()
-  - [4.5 Functional Characteristics]()
-- [5. SYNTHESIS]()
-  - [5.1 About Synthesys]()
-  - [5.2 Synthesizer]()
-- [6. GATE LEVEL SIMULATION(GLS)]()
-  - [6.1 About GLS]()
-  - [6.2 Running GLS]()
-  - [6.3 Observations from GLS Waveforms:]()
-- [7. PHYSICAL DESIGN]()
-  - [7.1 Overview of Physical Design flow]()
-  - [7.2 Opensource EDA tools]()
-  - [7.3 Openlane]()
-  - [7.4 Magic]()
-  - [7.5 Generating Layout with existing library cells]()
-  - [7.6 Customizing the layout]()
-  - [7.7 Generating Layout which inculdes custom made sky130_vsdinv]()
-  - [7.8 Identifing custom made sky130_vsdinv]()
-  - [7.9 Reports]()
-- [8. Future work:]()
-- [9. Contributors ]()
-- [10. Acknowledgments]()
-- [11. Contact Information]()
-- 
+- [1. Introduction to PWM Generator](#1-Introduction-to-PWM-Generator)
+- [2. Applications](#2-Applications)
+- [3. Blocked Diagram of PWM GENERATOR](#3-Blocked-Diagram-of-PWM-GENERATOR)
+- [4. Functional Simulation](#4-Functional-Simulation)
+  - [4.1 About iverilog](#41-About-iverilog)
+  - [4.2 About GTKWave](#42-About-GTKWave)
+  - [4.3 Installing iverilog and GTKWave](#43-Installing-iverilog-and-GTKWave)
+  - [4.4 Functional Simulation Process](#44-Functional-Simulation-Process)
+  - [4.5 Functional Characteristics](#45-Functional-Characteristics)
+- [5. SYNTHESIS](#5-SYNTHESIS)
+  - [5.1 About Synthesys](#51-About-Synthesys)
+  - [5.2 Synthesizer](#52-Synthesizer)
+- [6. GATE LEVEL SIMULATION](#6-GATE-LEVEL-SIMULATION)
+  - [6.1 About GLS](#61-About-GLS)
+  - [6.2 Running GLS](#62-Running-GLS)
+  - [6.3 Observations from GLS Waveforms](#63-Observations-from-GLS-Waveforms)
+- [7. PHYSICAL DESIGN](#7-PHYSICAL-DESIGN)
+  - [7.1 Overview of Physical Design flow](#71-Overview-of-Physical-Design-flow)
+  - [7.2 Opensource EDA tools](#72-Opensource-EDA-tools)
+  - [7.3 Openlane](#73-Openlane)
+  - [7.4 Magic](#74-Magic)
+  - [7.5 Generating Layout with existing library cells](#75-Generating-Layout-with-existing-library-cells)
+  - [7.6 Customizing the layout](#76-Customizing-the-layout)
+  - [7.7 Generating Layout which inculdes custom made sky130_vsdinv](#77-Generating-Layout-which-inculdes-custom-made-sky130_vsdinv)
+  - [7.8 Identifing custom made sky130_vsdinv](#78-Identifing-custom-made-sky130_vsdinv)
+  - [7.9 Reports](#79-Reports)
+- [8. Future work](8-Future-work)
+- [9. Contributors ](9-Contributors)
+- [10. Acknowledgments](10-Acknowledgments)
+- [11. Contact Information](11-Contact-Information)
 - [12. References](#12-References)
 
 ## 1. Introduction to PWM Generator
@@ -161,7 +160,7 @@ Now the synthesized netlist is written in "iiitb_pwm_gen_synth.v" file.
 
 
 
-## 6. GATE LEVEL SIMULATION(GLS)
+## 6. GATE LEVEL SIMULATION
 ### 6.1 About GLS
 GLS is generating the simulation output by running test bench with netlist file generated from synthesis as design under test. Netlist is logically same as RTL code, therefore, same test bench can be used for it.We perform this to verify logical correctness of the design after synthesizing it. Also ensuring the timing of the design is met.
 ### 6.2 Running GLS
@@ -545,7 +544,7 @@ sky130_vsdinv _ _172_ _
 
 
 
-## 8. Future work:
+## 8. Future work
 working on **GLS for post-layout netlist**.
 
 
