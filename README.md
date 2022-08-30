@@ -196,7 +196,7 @@ $   sudo make install
 ```
 type **magic** terminal to check whether it installed succesfully or not. type **exit** to exit magic.
 
-**Generating Layout**
+**Generating Layout with existing library cells**
 
 
 Open terminal in home directory
@@ -242,16 +242,191 @@ update the highlited text with appropriate path
 $   magic -T /home/parallels/Desktop/OpenLane/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../../tmp/merged.max.lef def read iiitb_pwm_gen.def &
 ```
 layout will be open in new window
-#### layout
+#### layout - without sky130_vsdinv
+
+<img width=“889” alt=“image” src=“https://user-images.githubusercontent.com/110079648/186497274-c053b6a9-33e3-40d1-b94e-8ffb237ddb13.png”>
+
+### sky130_vsdinv cell creation
+
+Lets design a custom cell and include in library and get it in final layout.
+clone the vsdcelldesign repo using following command
+```
+$ git clone https://github.com/nickson-jose/vsdstdcelldesign
+```
+
+<img width="875" alt="image" src="https://user-images.githubusercontent.com/110079648/187428540-c5fc6ace-76d6-45d0-8133-4dccb649a1b3.png">
+
+<img width="603" alt="image" src="https://user-images.githubusercontent.com/110079648/187429095-09758379-48fb-435a-bf32-5f5d5b0c232c.png">
+
+copy sky130A.tech to vsdstdcelldesign directory 
+
+```
+$ magic -T sky130A.tech sky130_inv.mag 
+```
+
+**layout of inverter cell**
+
+<img width="1401" alt="image" src="https://user-images.githubusercontent.com/110079648/187430540-b10c0584-7e3a-42d0-a8ac-1829bdf1ef0b.png">
+
+**Generating lef file**
+
+in tkcon terminal type the following command to generate **.lef** file
+
+```
+% lef write sky130_vsdinv
+```
+
+<img width="499" alt="image" src="https://user-images.githubusercontent.com/110079648/187432010-5506b422-3aac-4f9d-a6b5-9d25019be775.png">
+
+Copy the generated lef file to designs/iiit_pwm_gen/src
+Also copy lib files from vsdcelldesign/libs to designs/iiit_pwm_gen/src
+
+<img width="1396" alt="image" src="https://user-images.githubusercontent.com/110079648/187434252-1ef1d250-157d-4298-b24b-4b350fd1cba7.png">
+
+### Generating Layout which inculdes custom made **sky130_vsdinv**
+
+#### invkoing openlane
+
+Goto openlane directory and open terminal there
+
+```
+$ sudo make mount
+```
+<img width="723" alt="image" src="https://user-images.githubusercontent.com/110079648/187436509-69de182c-6681-4761-b298-ae0f79d0d05a.png">
+
+run the flow in interactive mode using following command
+
+```
+$ ./flow.tcl -interactive
+```
+
+Loading the package file
+
+```
+% package require openlane 0.9
+```
+
+ preparing design to run
+
+```
+% prep -design iiitb_pwm_gen
+```
+<img width="1401" alt="image" src="https://user-images.githubusercontent.com/110079648/187437865-3302f063-dccb-495a-8f64-22459ab565e1.png">
+
+Include the below command to include the additional lef (i.e sky130_vsdinv) into the flow:
+
+```
+% set lefs [glob $::env(DESIGN_DIR)/src/*.lef]
+% add_lefs -src $lefs
+```
+<img width="747" alt="image" src="https://user-images.githubusercontent.com/110079648/187438840-95daa5e5-140d-45f4-b5d0-4752660d5fb6.png">
+
+#### Running Synthesis
+
+to synthesize the code run the following command
+```
+% run_synthesis
+```
+<img width="743" alt="image" src="https://user-images.githubusercontent.com/110079648/187439336-5be0c15d-df77-42c3-97d8-21ebbf28467e.png">
+
+**Statistics** after synthesis
+
+pre synthesis stat
+
+<img width="373" alt="image" src="https://user-images.githubusercontent.com/110079648/187439837-22cd4173-e0b6-4d4a-bab7-567392bd574b.png">
+
+post synthesis stat
+
+<img width="529" alt="image" src="https://user-images.githubusercontent.com/110079648/187440444-cbe120f0-c496-43b7-a801-d68904cb3907.png">
+
+#### Running Floorplan
+run the folliwing command to run floorplan
+
+```
+% run_floorplan
+```
+
+<img width="747" alt="image" src="https://user-images.githubusercontent.com/110079648/187440792-b16a0732-5f81-42ce-a703-9a4f14b6f29b.png">
+
+**floorplan**
+
+<img width="1034" alt="image" src="https://user-images.githubusercontent.com/110079648/187441298-2b97c006-d5c4-4574-9187-0006c24add4c.png">
+
+#### Running Placement
+run the following command to run the placement
+
+```
+% run_placement
+```
+<img width="741" alt="image" src="https://user-images.githubusercontent.com/110079648/187442263-78757478-6ee7-4b45-b056-8e333cd3f71e.png">
+
+**layout after floorplan**
+
+<img width="1091" alt="image" src="https://user-images.githubusercontent.com/110079648/187442955-3044bdd4-d194-4436-a07b-5aafb8ad4113.png">
+
+#### Running Routing
+run the following command to run the routing
+
+```
+% run_routing
+```
+<img width="900" alt="image" src="https://user-images.githubusercontent.com/110079648/187443941-3166fcf5-0f9b-4a33-9eff-ff2a4795a8ba.png">
+
+**layout after Routing**
+
+<img width="1115" alt="image" src="https://user-images.githubusercontent.com/110079648/187444627-f46468d6-a0fb-4f2b-9215-9a1f3b33bf2d.png">
+
+<img width="1400" alt="image" src="https://user-images.githubusercontent.com/110079648/187444803-1776099a-ebcc-422b-a0ac-a723d93c0eb6.png">
+
+
+### Identifing custom made **sky130_vsdinv**
+
+in tkcon type the follow command to check where sky130_vsdinv exist or not
+```
+% getcell sky130_vsdinv
+```
+<img width="1201" alt="image" src="https://user-images.githubusercontent.com/110079648/187445444-627a4fd3-97a2-4c48-96bb-d2c99435cab0.png">
+
+<img width="713" alt="image" src="https://user-images.githubusercontent.com/110079648/187445684-2ea3630b-720f-4cdd-93ce-b59483dcf221.png">
+
+Seven sky130_vsdinv cells present in design
+
+sky130_vsdinv _ _138_ _
+sky130_vsdinv _ _158_ _
+sky130_vsdinv _ _167_ _
+sky130_vsdinv _ _169_ _
+sky130_vsdinv _ _170_ _
+sky130_vsdinv _ _171_ _
+sky130_vsdinv _ _172_ _
+
+<img width="1262" alt="image" src="https://user-images.githubusercontent.com/110079648/187447519-0028b1fa-bfb5-4360-bef3-ab980b24bd15.png">
+
+<img width="543" alt="image" src="https://user-images.githubusercontent.com/110079648/187447979-27aaaeb0-1da4-41df-aaaa-df5e17e0e976.png">
 
 
 
-![image](https://user-images.githubusercontent.com/110079648/187408792-fff08aa0-42ef-44c5-bd82-a371e04df914.png)
-
-![image](https://user-images.githubusercontent.com/110079648/187409575-e320fa06-c95d-42a9-821a-92be933f67b9.png)
 
 
-![image](https://user-images.githubusercontent.com/110079648/187409042-f3197608-028e-4b56-8af9-dd3b039e071f.png)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
