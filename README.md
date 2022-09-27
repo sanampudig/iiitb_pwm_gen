@@ -521,12 +521,12 @@ Goal is to plan the silicon area and create a robust power distribution network 
         
       * **2. Floorplan envrionment variables or switches:**
 
-        1. ```FP_CORE_UTIL``` - floorplan core utilisation
-        2. ```FP_ASPECT_RATIO``` - floorplan aspect ratio
-        3. ```FP_CORE_MARGIN``` - Core to die margin area
-        4. ```FP_IO_MODE``` - defines pin configurations (1 = equidistant/0 = not equidistant)
-        5. ```FP_CORE_VMETAL``` - vertical metal layer
-        6. ```FP_CORE_HMETAL``` - horizontal metal layer
+        1. `FP_CORE_UTIL` - floorplan core utilisation
+        2. `FP_ASPECT_RATIO` - floorplan aspect ratio
+        3. `FP_CORE_MARGIN` - Core to die margin area
+        4. `FP_IO_MODE` - defines pin configurations (1 = equidistant/0 = not equidistant)
+        5. `FP_CORE_VMETAL` - vertical metal layer
+        6. `FP_CORE_HMETAL` - horizontal metal layer
            
         ```Note: Usually, vertical metal layer and horizontal metal layer values will be 1 more than that specified in the file```
 
@@ -537,6 +537,10 @@ Goal is to plan the silicon area and create a robust power distribution network 
 ```
 
 <img width="747" alt="image" src="https://user-images.githubusercontent.com/110079648/187440792-b16a0732-5f81-42ce-a703-9a4f14b6f29b.png">
+
+- Post the floorplan run, a .def file will have been created within the results/floorplan directory. We may review floorplan files by checking the floorplan.tcl. The system defaults will have been overriden by switches set in conifg.tcl and further overriden by switches set in sky130A_sky130_fd_sc_hd_config.tcl.
+
+- To view the floorplan: Magic is invoked after moving to the results/floorplan directory,then use the floowing command:
 
 **floorplan**
 
@@ -657,3 +661,29 @@ working on **GLS for post-layout netlist**.
 ## 12. References
 - FPGA4Student
  https://www.fpga4student.com/2017/08/verilog-code-for-pwm-generator.html
+
+
+
+
+sudo make mount
+sta
+
+<img width="1392" alt="image" src="https://user-images.githubusercontent.com/110079648/192580358-4d0d3fa7-7344-4986-a84d-76e723e30557.png">
+
+read_liberty -min /home/parallels/Desktop/OpenLane/pdks/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__ff_n40C_1v56.lib
+
+read_liberty -max /home/parallels/Desktop/OpenLane/pdks/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__ff_n40C_1v56.lib
+
+read_verilog /home/parallels/Desktop/OpenLane/pdks/sky130A/iiitb_pwm_gen.v
+
+link_design iiitb_pwm_gen
+
+read_sdc /home/parallels/Desktop/OpenLane/pdks/sky130A/iiitb_pwm_gen.sdc
+
+set_propagated_clock [all_clocks]
+
+report_checks
+
+report_checks -from _247_ -to _244_
+
+report_check -from  _247_ -to _245_
