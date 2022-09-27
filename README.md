@@ -72,15 +72,15 @@ This project simulates the designed Pulse Width Modulated Wave Generator with Va
    - [9.4 flip-flop to standard cell ratio](#94-flip-flop-to-standard-cell-ratio)
    - [9.5 total power consumed](#95-total-power-consumed)
 
-- [9. Contributors ](#9-Contributors)
+- [10. Contributors ](#10-Contributors)
 
-- [10. Tapeout](#10-Tapeout)
+- [11. Tapeout](#11-Tapeout)
 
-- [11. Acknowledgments](#10-Acknowledgments)
+- [12. Acknowledgments](#12-Acknowledgments)
 
-- [12. Contact Information](#11-Contact-Information)
+- [13. Contact Information](#13-Contact-Information)
 
-- [13. References](#12-References)
+- [14. References](#14-References)
 
 ## 1. Introduction to PWM Generator
 Pulse Width Modulation is a famous technique used to create modulated electronic pulses of the desired width. The duty cycle is the ratio of how long that PWM signal stays at the high position to the total time period.
