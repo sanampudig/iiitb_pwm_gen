@@ -37,21 +37,29 @@ This project simulates the designed Pulse Width Modulated Wave Generator with Va
   	- [7.6.1 VSD INV cell creation](#761-sky130_vsdinv-cell-creation)
 	- [7.6.2 layout of inverter cell](#762-layout-of-inverter-cell)
 	- [7.6.3 Generating lef file](#763-Generating-lef-file)
-		-[layout after placement](#layout-after-placement)
+		* [layout after placement](#layout-after-placement)
   - [7.7 Generating Layout which inculdes custom made sky130_vsdinv](#77-Generating-Layout-which-inculdes-custom-made-sky130_vsdinv)
   	- [7.7.1 invkoing openlane, running the flow in Interactive mode, loading package](#771-invkoing-openlane)
 	- [7.7.2 Preparing the design](#772-Preparing-the-design)
 	- [7.7.3 Synthesis](#773-Synthesis)
-		- [Statistics after synthesis](#Statistics-after-synthesis)
-		- [Calculation of Flop Ratio](#Calculation-of-Flop-Ratio)
+		* [Statistics after synthesis](#Statistics-after-synthesis)
+		* [Calculation of Flop Ratio](#Calculation-of-Flop-Ratio)
 	- [7.7.4 Floorplan](#774-Floorplan)
 	- [7.7.5 Placement](#775-Placement)
-		- [sky130_vsdinv after placement](#sky130_vsdinv-after-placement)
+		* [sky130_vsdinv after placement](#sky130_vsdinv-after-placement)
 	- [7.7.6 CTS](#776-CTS)
-		-[Clock SKEW report](#Clock-SKEW-report)	[Setup timing report](#Setup-timing-report)	[Hold timing report](#Hold-timing-report)	[Total Negative Slack](#Total-Negative-Slack)	[Wrost Neagative Slack](#Wrost-Neagative-Slack)	[Wrost Slack](#Wrost-Slack)	[Area report](#Area-report)	[Power Report](#Power-Report)	[Slew Report](#Slew-Report)
+		* [Clock SKEW report](#Clock-SKEW-report)
+		* [Setup timing report](#Setup-timing-report)
+		* [Hold timing report](#Hold-timing-report)
+		* [Total Negative Slack](#Total-Negative-Slack)
+		* [Wrost Neagative Slack](#Wrost-Neagative-Slack)
+		* [Wrost Slack](#Wrost-Slack)
+		* [Area report](#Area-report)
+		* [Power Report](#Power-Report)
+		* [Slew Report](#Slew-Report)
 		
 	- [7.7.7 Routing](#777-Routing)
-		-[layout after Routing](#layout-after-Routing)
+		*[layout after Routing](#layout-after-Routing)
 	- [](#)
 	
   - [7.8 Identifing custom made sky130_vsdinv](#78-Identifing-custom-made-sky130_vsdinv)
@@ -59,14 +67,21 @@ This project simulates the designed Pulse Width Modulated Wave Generator with Va
 - [8. Performance Calculation using OpenSTA](#8-Performance-Calculation-using-OpenSTA)
 
 - [9. Parameters](#9-Parameters)
+   - [9.1 Post-synthesis Gate count for your design](#91-Post-synthesis-Gate-count-for-your-design)
+   - [9.2 Area of design](#92-Area-of-design)
+   - [9.3 Performance GHz/MHz achieved](#93-Performance-achieved)
+   - [9.4 flip-flop to standard cell ratio](#94-flip-flop-to-standard-cell-ratio)
+   - [9.5 total power consumed](#95-total-power-consumed)
 
 - [9. Contributors ](#9-Contributors)
 
-- [10. Acknowledgments](#10-Acknowledgments)
+- [10. Tapeout](#10-Tapeout)
 
-- [11. Contact Information](#11-Contact-Information)
+- [11. Acknowledgments](#10-Acknowledgments)
 
-- [12. References](#12-References)
+- [12. Contact Information](#11-Contact-Information)
+
+- [13. References](#12-References)
 
 ## 1. Introduction to PWM Generator
 Pulse Width Modulation is a famous technique used to create modulated electronic pulses of the desired width. The duty cycle is the ratio of how long that PWM signal stays at the high position to the total time period.
@@ -799,7 +814,9 @@ Endpoint The end of a timing path where data is captured by a clock edge or wher
 
 ### Performance Caluculation:
 
-```							1
+```	
+
+                                                      1
 Maximum Possible Operating Frequency = -----------------------------
 					  Clock period - Setup Slack
 					  
@@ -807,20 +824,41 @@ Maximum Possible Operating Frequency = -----------------------------
 				      = ---------------------  
 				            65ns - 61.36ns
 				            
-				      = 0.274725275 GH
+				      = 0.274725275 GHz
 ```
 
 
 ## 9. Parameters
+### 9.1 Post synthesis Gate count for your design 
+Number of cells: 179
+![image](https://user-images.githubusercontent.com/110079648/192614205-ded3aef5-5389-4730-9c67-6d235ad987fe.png)
 
-## 9. Contributors 
+### 9.2 Area of design
+Area=6586.0834 micrometre^2
+![image](https://user-images.githubusercontent.com/110079648/192614487-c9d961ba-4534-4c8a-8e56-83618b5b782f.png)
+
+### 9.3 Performance achieved
+Performance = 0.274725275 GHz
+<img width="139" alt="image" src="https://user-images.githubusercontent.com/110079648/192614686-614212f3-da88-4a75-b1c0-010343529f23.png">
+
+### 9.4 flip flop to standard cell ratio
+flip-flop to standard cell ratio = 40/179 = 0.2235
+![image](https://user-images.githubusercontent.com/110079648/192614813-a890facf-edfd-4648-8077-27f32ecc60e8.png)
+
+### 9.5 total power consumed
+Total power = 0.137mW
+![image](https://user-images.githubusercontent.com/110079648/192615310-d901b639-e4ba-4487-b931-14eecec689cb.png)
+
+## 10. Tapeout
+
+## 11. Contributors 
 
 - **Sanampudi Gopala Krishna Reddy** 
 - **Kunal Ghosh** 
 
 
 
-## 10. Acknowledgments
+## 12. Acknowledgments
 
 
 - Kunal Ghosh, Director, VSD Corp. Pvt. Ltd.
@@ -828,12 +866,12 @@ Maximum Possible Operating Frequency = -----------------------------
 - Vinay Rayapati, Postgraduate Student, International Institute of Information Technology, Bangalore
 - Gogireddy Ravi Kiran Reddy, Postgraduate Student, International Institute of Information Technology, Bangalore
 
-## 11. Contact Information
+## 13. Contact Information
 
 - Sanampudi Gopala Krishna Reddy, Postgraduate Student, International Institute of Information Technology, Bangalore  svgkr7@gmail.com
 - Kunal Ghosh, Director, VSD Corp. Pvt. Ltd. kunalghosh@gmail.com
 
-## 12. References
+## 14. References
 - FPGA4Student
  https://www.fpga4student.com/2017/08/verilog-code-for-pwm-generator.html
 
