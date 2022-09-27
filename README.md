@@ -26,8 +26,27 @@ This project simulates the designed Pulse Width Modulated Wave Generator with Va
   - [7.3 Openlane](#73-Openlane)
   - [7.4 Magic](#74-Magic)
   - [7.5 Generating Layout with existing library cells](#75-Generating-Layout-with-existing-library-cells)
+  	- [7.5.1 Layout without VSDINV](#Layout-without-sky130_vsdinv)
   - [7.6 Customizing the layout](#76-Customizing-the-layout)
+  	- [7.6.1 VSD INV cell creation](#761-sky130_vsdinv-cell-creation)
+	- [7.6.2 layout of inverter cell](#762-layout-of-inverter-cell)
+	- [7.6.3 Generating lef file](#763-Generating-lef-file)
+		-[layout after placement](#layout-after-placement)
+	
   - [7.7 Generating Layout which inculdes custom made sky130_vsdinv](#77-Generating-Layout-which-inculdes-custom-made-sky130_vsdinv)
+  	- [7.7.1 invkoing openlane, running the flow in Interactive mode, loading package](#771-invkoing-openlane)
+	- [7.7.2 Preparing the design](#772-Preparing-the-design)
+	- [7.7.3 Synthesis](#773-Synthesis)
+		- [Statistics after synthesis](#Statistics-after-synthesis)
+		- [Calculation of Flop Ratio](#Calculation-of-Flop-Ratio)
+		- [sky130_vsdinv after placement](#sky130_vsdinv-after-placement)
+	- [7.7.4 Floorplan](#774-Floorplan)
+	- [7.7.5 Placement](#775-Placement)
+	- [](#)
+	- [](#)
+	- [](#)
+	7.7.3 Synthesis
+	
   - [7.8 Identifing custom made sky130_vsdinv](#78-Identifing-custom-made-sky130_vsdinv)
   - [7.9 Reports](#79-Reports)
 - [8. Future work](#8-Future-work)
@@ -89,6 +108,7 @@ $   sudo apt-get install iverilog gtkwave
 
 ### 4.4 Functional Simulation Process
 To clone the Repository and download the Netlist files for Simulation, enter the following commands in your terminal.
+
 ```
 $   sudo apt install -y git
 $   git clone https://github.com/sanampudig/iiitb_pwm_gen
@@ -103,10 +123,12 @@ $   gtkwave pwm.vcd
 <img width="1237" alt="image" src="https://user-images.githubusercontent.com/110079648/185279592-9702ac31-2086-4306-af10-21de2ba8df0d.png">
 
 
-Simulation Results while increasing Dutycycle
+> Simulation Results while increasing Dutycycle
+
 <img width="1037" alt="image" src="https://user-images.githubusercontent.com/110079648/185279131-14e40063-f6b1-4b14-8295-ee147363301e.png">
 
-Simulation Results while decreasing Dutycycle
+> Simulation Results while decreasing Dutycycle
+
 <img width="1248" alt="image" src="https://user-images.githubusercontent.com/110079648/185279340-1f8f628f-98e1-44d6-867d-7fb52bb5387e.png">
 
 
@@ -141,22 +163,22 @@ The contents of the yosys_run file are given below:
 
 Now, in the terminal of your verilog files folder, run the following commands:
 
+- Run the following commands to syhthesize
 
-#### to synthesize
 ```
 $   yosys
 $   yosys>    script yosys_run.sh
 ```
 
-#### to see diffarent types of cells after synthesys
+- To see diffarent types of cells after synthesys
 ```
 $   yosys>    stat
 ```
-#### to generate schematics
+- To generate schematics
 ```
 $   yosys>    show
 ```
-Now the synthesized netlist is written in "iiitb_pwm_gen_synth.v" file.
+Now the synthesized netlist is written in `iiitb_pwm_gen_synth.v` file.
 
 
 
@@ -174,16 +196,19 @@ The gtkwave output for the netlist should match the output waveform for the RTL 
 #### GLS Waveforms
 <img width="1219" alt="image" src="https://user-images.githubusercontent.com/110079648/185278697-7a63d943-ca46-4a22-87f4-4e0750bd0a5c.png">
 
-Simulation Results while increasing Dutycycle
+- Simulation Results while increasing Dutycycle
 
 <img width="956" alt="image" src="https://user-images.githubusercontent.com/110079648/185278249-ebab1137-f668-4008-830e-33053b598396.png">
 
-Simulation Results while decreasing Dutycycle
+- Simulation Results while decreasing Dutycycle
 
 <img width="1167" alt="image" src="https://user-images.githubusercontent.com/110079648/185278406-2b7c17cd-46fa-4636-a3de-b0f84d06aa1f.png">
 
 ### 6.3 Observations from GLS Waveforms
-Output characteristics of Functional simulation is matched with output of Gate Level Simulation. 
+Output characteristics of **Functional simulation** is matched with output of **Gate Level Simulation**. 
+
+
+
 
 ## 7. PHYSICAL DESIGN
 
@@ -212,7 +237,6 @@ Circuit validity checker | [CVC](https://github.com/d-m-bailey/cvc)
 
 
 
-  - 
 ### 7.3 Openlane
 OpenLane is an automated RTL to GDSII flow based on several components including OpenROAD, Yosys, Magic, Netgen, CVC, SPEF-Extractor, CU-GR, Klayout and a number of custom scripts for design exploration and optimization. The flow performs full ASIC implementation steps from RTL all the way down to GDSII.
 
@@ -248,19 +272,19 @@ OpenLane is an automated RTL to GDSII flow based on several components including
 	- `CVC` - Performs Circuit Validity Checks
 
 more at https://github.com/The-OpenROAD-Project/OpenLane
-#### Installation instructions 
+#### Openlane Installation instructions 
 ```
 $   apt install -y build-essential python3 python3-venv python3-pip
 ```
-Docker installation process: https://docs.docker.com/engine/install/ubuntu/
+- Docker installation process: https://docs.docker.com/engine/install/ubuntu/
 
-goto home directory->
+- Goto home directory->
 ```
 $   git clone https://github.com/The-OpenROAD-Project/OpenLane.git
 $   cd OpenLane/
 $   sudo make
 ```
-To test the open lane
+- To test the Openlane
 ```
 $ sudo make test
 ```
@@ -342,17 +366,17 @@ Update the highlited text with appropriate path
 $   magic -T /home/parallels/Desktop/OpenLane/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../../tmp/merged.max.lef def read iiitb_pwm_gen.def &
 ```
 Layout will be open in new window
-#### Layout - without sky130_vsdinv
+#### Layout without sky130_vsdinv
 - The final layout obtained after the completion of the flow in non-interactive mode is shown below:
 
 <img width="1404" alt="image" src="https://user-images.githubusercontent.com/110079648/187451636-8cc1c492-ef3a-45d4-9466-2790b02bf80f.png">
 
 ### 7.6 Customizing the layout
-#### sky130_vsdinv cell creation
+#### 7.6.1 sky130_vsdinv cell creation
 
 Here we are going to customise our layout by including our custom made sky130_vsdinv cell into our layout.
 
-- 1 . CREATING THE SKY130_VSDINV CELL LEF FILE
+-  CREATING THE SKY130_VSDINV CELL LEF FILE
 
    -You need to first get the git repository of the vsdstdccelldesign.To get the    repository type the following command:
 
@@ -378,7 +402,7 @@ $ magic -T sky130A.tech sky130_inv.mag
 
 
 
-#### layout of inverter cell
+#### 7.6.2 layout of inverter cell
 
 <img width="1401" alt="image" src="https://user-images.githubusercontent.com/110079648/187430540-b10c0584-7e3a-42d0-a8ac-1829bdf1ef0b.png">
 
@@ -390,7 +414,7 @@ The tkcon command window of the port classification is shown in the image below:
 
 
 
-#### Generating lef file
+#### 7.6.3 Generating lef file
 - In the next step, use `lef write` command to write the LEF file with the same nomenclature as that of the layout `.mag` file. This will create a **sky130_vsdinv.lef** file in the same folder.
    
 
@@ -438,7 +462,7 @@ this config file is avilable in repo under name `config1.json`.
 
 ### 7.7 Generating Layout which inculdes custom made sky130_vsdinv
 
-#### invkoing openlane
+#### 7.7.1 invkoing openlane
 
 Goto openlane directory and open terminal there
 
@@ -461,7 +485,7 @@ Loading the package file
 ```
 % package require openlane 0.9
 ```
-
+#### 7.7.2 Preparing the design
 - Preparing the design and including the lef files: The commands to prepare the design and overwite in a existing run folder the reports and results along with the command to include the lef files is given below:
 
 ```
@@ -477,7 +501,7 @@ Include the below command to include the additional lef (i.e sky130_vsdinv) into
 ```
 <img width="747" alt="image" src="https://user-images.githubusercontent.com/110079648/187438840-95daa5e5-140d-45f4-b5d0-4752660d5fb6.png">
 
-#### Synthesis
+#### 7.7.3 Synthesis
 Logic synthesis uses the RTL netlist to perform HDL technology mapping. The synthesis process is normally performed in two major steps:
 
 - GTECH Mapping – Consists of mapping the HDL netlist to generic gates what are used to perform logical optimization based on AIGERs and other topologies created from the generic mapped netlist.
@@ -511,7 +535,7 @@ Flop ratio = -------------------------
 ![image](https://user-images.githubusercontent.com/110079648/192553505-3de38cb4-31e6-4cd7-8de5-90636a214caa.png)
 
 
-#### Floorplan
+#### 7.7.4 Floorplan
 
 Goal is to plan the silicon area and create a robust power distribution network (PDN) to power each of the individual components of the synthesized netlist. In addition, macro placement and blockages must be defined before placement occurs to ensure a legalized GDS file. In power planning we create the ring which is connected to the pads which brings power around the edges of the chip. We also include power straps to bring power to the middle of the chip using higher metal layers which reduces IR drop and electro-migration problem.
 
@@ -563,7 +587,7 @@ magic -T /home/parallels/Desktop/OpenLane/pdks/sky130A/libs.tech/magic/sky130A.t
 <img width="533" alt="image" src="https://user-images.githubusercontent.com/110079648/192584775-e62d14c8-223b-4cf7-a466-eee10f1f0560.png">
 
 
-#### Placement
+#### 7.7.5 Placement
 Place the standard cells on the floorplane rows, aligned with sites defined in the technology lef file. Placement is done in two steps: Global and Detailed. In Global placement tries to find optimal position for all cells but they may be overlapping and not aligned to rows, detailed placement takes the global placement and legalizes all of the placements trying to adhere to what the global placement wants.
 
 - The next step in the OpenLANE ASIC flow is placement. The synthesized netlist is to be placed on the floorplan. Placement is perfomed in 2 stages:
@@ -584,11 +608,11 @@ run the following command to run the placement
 ```
 magic -T /home/parallels/Desktop/OpenLane/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.nom.lef def read iiitb_pwm_gen.def &
 ```
-**layout after placement**
+#### layout after placement
 
 <img width="1091" alt="image" src="https://user-images.githubusercontent.com/110079648/187442955-3044bdd4-d194-4436-a07b-5aafb8ad4113.png">
 
-- **sky130_vsdinv** after placement
+#### sky130_vsdinv after placement
 
 <img width="1399" alt="image" src="https://user-images.githubusercontent.com/110079648/192588435-aa5e227d-196b-4691-a0d8-63f8e04d60d3.png">
 
@@ -764,12 +788,15 @@ working on **GLS for post-layout netlist**.
 
 
 
-
-sudo make mount
+```
+$ sudo make mount
+```
+```
 sta
+```
 
 <img width="1392" alt="image" src="https://user-images.githubusercontent.com/110079648/192580358-4d0d3fa7-7344-4986-a84d-76e723e30557.png">
-
+```
 read_liberty -min /home/parallels/Desktop/OpenLane/pdks/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__ff_n40C_1v56.lib
 
 read_liberty -max /home/parallels/Desktop/OpenLane/pdks/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__ff_n40C_1v56.lib
@@ -783,7 +810,10 @@ read_sdc /home/parallels/Desktop/OpenLane/pdks/sky130A/iiitb_pwm_gen.sdc
 set_propagated_clock [all_clocks]
 
 report_checks
-
+```
+```
 report_checks -from _247_ -to _244_
-
+```
+```
 report_check -from  _247_ -to _245_
+```
