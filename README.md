@@ -488,7 +488,7 @@ to synthesize the code run the following command
 ```
 <img width="743" alt="image" src="https://user-images.githubusercontent.com/110079648/187439336-5be0c15d-df77-42c3-97d8-21ebbf28467e.png">
 
-#### Statistics** after synthesis
+#### Statistics after synthesis
 
 
 
@@ -500,9 +500,9 @@ to synthesize the code run the following command
 
  ```
   
-        Flop ratio = Number of D Flip flops 
-                     ______________________
-                     Total Number of cells
+        	      Number of D Flip flops 
+  Flop ratio =      -------------------------
+                      Total Number of cells
 		     
 ```
 
@@ -515,9 +515,9 @@ Goal is to plan the silicon area and create a robust power distribution network 
 
   * **1. Importance of files in increasing priority order:**
 
-        1. ```floorplan.tcl``` - System default envrionment variables
-        2. ```conifg.tcl```
-        3. ```sky130A_sky130_fd_sc_hd_config.tcl```
+        1. `floorplan.tcl` - System default envrionment variables
+        2. `conifg.tcl`
+        3. `sky130A_sky130_fd_sc_hd_config.tcl`
         
       * **2. Floorplan envrionment variables or switches:**
 
@@ -530,7 +530,7 @@ Goal is to plan the silicon area and create a robust power distribution network 
            
         ```Note: Usually, vertical metal layer and horizontal metal layer values will be 1 more than that specified in the file```
 
-run the folliwing command to run floorplan
+- Following command helps to run floorplan
 
 ```
 % run_floorplan
