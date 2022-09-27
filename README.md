@@ -210,6 +210,12 @@ DRC Checks, GDSII Streaming out | [Magic](https://github.com/RTimothyEdwards/mag
 LVS check | [Netgen](https://github.com/RTimothyEdwards/netgen)
 Circuit validity checker | [CVC](https://github.com/d-m-bailey/cvc)
 
+
+
+  - 
+### 7.3 Openlane
+OpenLane is an automated RTL to GDSII flow based on several components including OpenROAD, Yosys, Magic, Netgen, CVC, SPEF-Extractor, CU-GR, Klayout and a number of custom scripts for design exploration and optimization. The flow performs full ASIC implementation steps from RTL all the way down to GDSII.
+
 #### OpenLANE design stages
 
 1. Synthesis
@@ -240,10 +246,6 @@ Circuit validity checker | [CVC](https://github.com/d-m-bailey/cvc)
 	- `Klayout` - Performs DRC Checks
 	- `Netgen` - Performs LVS Checks
 	- `CVC` - Performs Circuit Validity Checks
-
-  - 
-### 7.3 Openlane
-OpenLane is an automated RTL to GDSII flow based on several components including OpenROAD, Yosys, Magic, Netgen, CVC, SPEF-Extractor, CU-GR, Klayout and a number of custom scripts for design exploration and optimization. The flow performs full ASIC implementation steps from RTL all the way down to GDSII.
 
 more at https://github.com/The-OpenROAD-Project/OpenLane
 #### Installation instructions 
@@ -282,7 +284,7 @@ $   sudo apt-get install mesa-common-dev libglu1-mesa-dev
 $   sudo apt-get install libncurses-dev
 ```
 **To install magic**
-goto home directory
+Goto home directory
 
 ```
 $   git clone https://github.com/RTimothyEdwards/magic
@@ -291,7 +293,7 @@ $   ./configure
 $   sudo make
 $   sudo make install
 ```
-type **magic** terminal to check whether it installed succesfully or not. type **exit** to exit magic.
+Type **magic** terminal to check whether it installed succesfully or not. type **exit** to exit magic.
 
 ### 7.5 Generating Layout with existing library cells
 **NON-INTERACTIVE MODE:** Here we are generating the layout in the non-interactive mode or the automatic mode. In this we cant interact with the flow in the middle of each stage of the flow.The flow completes all the stages starting from synthesis until you obtain the final layout and the reports of various stages which specify the violations and problems if present during the flow.
@@ -315,32 +317,32 @@ $   ./flow.tcl -design iiitb_pwm_gen
 
 To see the layout we use a tool called magic which we installed earlier.
 
-open terminal in home directory
+Open terminal in home directory
 ```
 $   cd OpenLane/designs/iiitb_pwm_gen/run
 $   ls
 ```
-select most run directoy from list 
+Select most run directoy from list 
 
 
-example:
+Example:
 <img width="848" alt="image" src="https://user-images.githubusercontent.com/110079648/186496088-a9884959-fb45-49d3-aab2-f7d5447e2f0f.png">
 
 ```
 $  cd RUN_2022.08.24_18.20.10
 ```
-run following instruction
+Run following instruction
 ```
 $   cd results/final/def
 ```
-update the highlited text with appropriate path 
+Update the highlited text with appropriate path 
 <img width="1008" alt="image" src="https://user-images.githubusercontent.com/110079648/186496602-1468f119-e922-436e-9324-bc76dfcfa640.png">
 
 ```
 $   magic -T /home/parallels/Desktop/OpenLane/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../../tmp/merged.max.lef def read iiitb_pwm_gen.def &
 ```
-layout will be open in new window
-#### layout - without sky130_vsdinv
+Layout will be open in new window
+#### Layout - without sky130_vsdinv
 - The final layout obtained after the completion of the flow in non-interactive mode is shown below:
 
 <img width="1404" alt="image" src="https://user-images.githubusercontent.com/110079648/187451636-8cc1c492-ef3a-45d4-9466-2790b02bf80f.png">
@@ -482,7 +484,7 @@ Logic synthesis uses the RTL netlist to perform HDL technology mapping. The synt
 
 - Technology Mapping – Consists of mapping the post-optimized GTECH netlist to standard cells described in the PDK
 
-to synthesize the code run the following command
+To synthesize the code run the following command
 ```
 % run_synthesis
 ```
@@ -492,7 +494,7 @@ to synthesize the code run the following command
 
 
 
-> post synthesis stat
+> Post synthesis stat
 
 ![image](https://user-images.githubusercontent.com/110079648/192553423-55ac3c34-2cc3-4d47-833a-9fce83e89bd1.png)
 
@@ -500,9 +502,9 @@ to synthesize the code run the following command
 
  ```
   
-        	      Number of D Flip flops 
-  Flop ratio =      -------------------------
-                      Total Number of cells
+              Number of D Flip flops 
+Flop ratio = -------------------------
+              Total Number of cells
 		     
 ```
 
@@ -513,21 +515,23 @@ to synthesize the code run the following command
 
 Goal is to plan the silicon area and create a robust power distribution network (PDN) to power each of the individual components of the synthesized netlist. In addition, macro placement and blockages must be defined before placement occurs to ensure a legalized GDS file. In power planning we create the ring which is connected to the pads which brings power around the edges of the chip. We also include power straps to bring power to the middle of the chip using higher metal layers which reduces IR drop and electro-migration problem.
 
-  * **1. Importance of files in increasing priority order:**
-        1. `floorplan.tcl` - System default envrionment variables
-        2. `conifg.tcl`
-        3. `sky130A_sky130_fd_sc_hd_config.tcl`
-        
-      * **2. Floorplan envrionment variables or switches:**
 
-        1. `FP_CORE_UTIL` - floorplan core utilisation
-        2. `FP_ASPECT_RATIO` - floorplan aspect ratio
-        3. `FP_CORE_MARGIN` - Core to die margin area
-        4. `FP_IO_MODE` - defines pin configurations (1 = equidistant/0 = not equidistant)
-        5. `FP_CORE_VMETAL` - vertical metal layer
-        6. `FP_CORE_HMETAL` - horizontal metal layer
-           
-        > Note: Usually, vertical metal layer and horizontal metal layer values will be 1 more than that specified in the file
+* 1. Importance of files in increasing priority order:
+
+	`floorplan.tcl` - System default envrionment variables
+	`conifg.tcl`
+	`sky130A_sky130_fd_sc_hd_config.tcl`
+* 2. Floorplan envrionment variables or switches:
+
+	`FP_CORE_UTIL` - floorplan core utilisation
+	`FP_ASPECT_RATIO` - floorplan aspect ratio
+	`FP_CORE_MARGIN` - Core to die margin area
+	`FP_IO_MODE` - defines pin configurations (1 = equidistant/0 = not equidistant)
+	`FP_CORE_VMETAL` - vertical metal layer
+	`FP_CORE_HMETAL` - horizontal metal layer
+- Note: Usually, vertical metal layer and horizontal metal layer values will be 1 more than that specified in the file
+
+
 
 - Following command helps to run floorplan
 
