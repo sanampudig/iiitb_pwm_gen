@@ -514,7 +514,6 @@ to synthesize the code run the following command
 Goal is to plan the silicon area and create a robust power distribution network (PDN) to power each of the individual components of the synthesized netlist. In addition, macro placement and blockages must be defined before placement occurs to ensure a legalized GDS file. In power planning we create the ring which is connected to the pads which brings power around the edges of the chip. We also include power straps to bring power to the middle of the chip using higher metal layers which reduces IR drop and electro-migration problem.
 
   * **1. Importance of files in increasing priority order:**
-
         1. `floorplan.tcl` - System default envrionment variables
         2. `conifg.tcl`
         3. `sky130A_sky130_fd_sc_hd_config.tcl`
@@ -528,7 +527,7 @@ Goal is to plan the silicon area and create a robust power distribution network 
         5. `FP_CORE_VMETAL` - vertical metal layer
         6. `FP_CORE_HMETAL` - horizontal metal layer
            
-        ```Note: Usually, vertical metal layer and horizontal metal layer values will be 1 more than that specified in the file```
+        > Note: Usually, vertical metal layer and horizontal metal layer values will be 1 more than that specified in the file
 
 - Following command helps to run floorplan
 
@@ -542,12 +541,32 @@ Goal is to plan the silicon area and create a robust power distribution network 
 
 - To view the floorplan: Magic is invoked after moving to the results/floorplan directory,then use the floowing command:
 
+```
+magic -T /home/parallels/Desktop/OpenLane/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.nom.lef def read iiitb_pwm_gen.def &
+
+```
+
 **floorplan**
 
 <img width="1034" alt="image" src="https://user-images.githubusercontent.com/110079648/187441298-2b97c006-d5c4-4574-9187-0006c24add4c.png">
 
+**Die area (post floor plan)**
+
+<img width="551" alt="image" src="https://user-images.githubusercontent.com/110079648/192584657-c9e1b04b-5c9d-4d31-8c4a-70049b009954.png">
+
+**Core area (post floor plan)**
+
+<img width="533" alt="image" src="https://user-images.githubusercontent.com/110079648/192584775-e62d14c8-223b-4cf7-a466-eee10f1f0560.png">
+
+
 #### Placement
 Place the standard cells on the floorplane rows, aligned with sites defined in the technology lef file. Placement is done in two steps: Global and Detailed. In Global placement tries to find optimal position for all cells but they may be overlapping and not aligned to rows, detailed placement takes the global placement and legalizes all of the placements trying to adhere to what the global placement wants.
+
+- The next step in the OpenLANE ASIC flow is placement. The synthesized netlist is to be placed on the floorplan. Placement is perfomed in 2 stages:
+
+* Global Placement: It finds optimal position for all cells which may not be legal and cells may overlap. Optimization is done through reduction of half parameter wire length.
+* Detailed Placement: It alters the position of cells post global placement so as to legalise them.
+
 
 run the following command to run the placement
 
@@ -556,32 +575,109 @@ run the following command to run the placement
 ```
 <img width="741" alt="image" src="https://user-images.githubusercontent.com/110079648/187442263-78757478-6ee7-4b45-b056-8e333cd3f71e.png">
 
-**layout after floorplan**
+- Post placement: the design can be viewed on magic within `results/placement` directory. Run the follwing command in that directory:
+
+```
+magic -T /home/parallels/Desktop/OpenLane/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.nom.lef def read iiitb_pwm_gen.def &
+```
+**layout after placement**
 
 <img width="1091" alt="image" src="https://user-images.githubusercontent.com/110079648/187442955-3044bdd4-d194-4436-a07b-5aafb8ad4113.png">
+
+- **sky130_vsdinv** after placement
+
+<img width="1399" alt="image" src="https://user-images.githubusercontent.com/110079648/192588435-aa5e227d-196b-4691-a0d8-63f8e04d60d3.png">
 
 
 #### CTS
 
-Clock tree synteshsis is used to create the clock distribution network that is used to deliver the clock to all sequential elements. The main goal is to create a network with minimal skew across the chip. H-trees are a common network topology that is used to achieve this goal.
+- Clock tree synteshsis is used to create the clock distribution network that is used to deliver the clock to all sequential elements. The main goal is to create a network with minimal skew across the chip. H-trees are a common network topology that is used to achieve this goal.
 
-run the following command to perform CTS
+
+- The purpose of building a clock tree is enable the clock input to reach every element and to ensure a zero clock skew. H-tree is a common methodology followed in CTS. Before attempting a CTS run in TritonCTS tool, if the slack was attempted to be reduced in previous run, the netlist may have gotten modified by cell replacement techniques. Therefore, the verilog file needs to be modified using the `write_verilog` command. Then, the synthesis, floorplan and placement is run again
+
+
+- Run the following command to perform CTS
 ```
 % run_cts
 ```
+
+- **Clock SKEW** report:
+
+<img width="534" alt="image" src="https://user-images.githubusercontent.com/110079648/192589320-602d0a94-7580-4417-91ab-7c6f05148b3f.png">
+
+- **CTS-STA-MAX(setup)** timing report
+
+<img width="1011" alt="image" src="https://user-images.githubusercontent.com/110079648/192590586-7e3c1c38-45ce-4317-ba40-6561a8afabd1.png">
+
+- **CTS-STA-MIN(hold)** timing report
+
+<img width="783" alt="image" src="https://user-images.githubusercontent.com/110079648/192590869-702a2f8e-7c14-4090-b05b-3a9909b69fac.png">
+
+- Total Negative Slack
+
+<img width="518" alt="image" src="https://user-images.githubusercontent.com/110079648/192591116-75ef37cc-61aa-46ea-9bf0-c4ec5621e81d.png">
+
+- Wrost Neagative Slack
+
+<img width="531" alt="image" src="https://user-images.githubusercontent.com/110079648/192591204-d3d00b2b-22b6-4b52-b20a-541b8f214f63.png">
+
+- Wrost Slack
+
+<img width="528" alt="image" src="https://user-images.githubusercontent.com/110079648/192592043-0e273efa-e6e6-4408-bb0a-e67329476b06.png">
+
+- Area report
+
+<img width="540" alt="image" src="https://user-images.githubusercontent.com/110079648/192591302-34e469ce-dbee-480d-b40d-b5b87b6dedc9.png">
+
+- Power Report
+
+<img width="707" alt="image" src="https://user-images.githubusercontent.com/110079648/192591791-74c945e2-2aea-467d-81df-ebea40dc7eeb.png">
+
+- Slew Report
+
+<img width="655" alt="image" src="https://user-images.githubusercontent.com/110079648/192592127-b1de95ba-4c7f-4269-bc34-32dc7bda1c16.png">
 
 
 #### Routing
 
 Implements the interconnect system between standard cells using the remaining available metal layers after CTS and PDN generation. The routing is performed on routing grids to ensure minimal DRC errors.
 
-run the following command to run the routing
+- 1. OpenLANE uses the TritonRoute tool for routing. There are 2 stages of routing:
+
+* Global routing: Routing region is divided into rectangle grids which are represented as course 3D routes (Fastroute tool).
+* Detailed routing: Finer grids and routing guides used to implement physical wiring (TritonRoute tool).
+
+- Features of TritonRoute:
+
+* Honouring pre-processed route guides
+* Assumes that each net satisfies inter guide connectivity
+* Uses MILP based panel routing scheme
+* Intra-layer parallel and inter-layer sequential routing framework
+
+Run the following command to run the routing
 
 ```
 % run_routing
 ```
 <img width="900" alt="image" src="https://user-images.githubusercontent.com/110079648/187443941-3166fcf5-0f9b-4a33-9eff-ff2a4795a8ba.png">
 
+
+**Do know in routing stage**
+
+- `run_routing` - To start the routing
+- The options for routing can be set in the `config.tcl` file.
+The optimisations in routing can also be done by specifying the routing strategy to use different version of `TritonRoute Engine`. There is a trade0ff between the optimised route and the runtime for routing.
+The routing stage must have the `CURRENT_DEF` set to `pdn.def`.
+The two stages of routing are performed by the following engines:
+Global Route : Fast Route
+Detailed Route : Triton Route
+Fast Route generates the routing guides, whereas Triton Route uses the Global Route and then completes the routing with some strategies and optimisations for finding the best possible path connect the pins.
+- Layout in magic tool post routing: the design can be viewed on magic within `results/routing` directory. Run the follwing command in that directory:
+
+```
+magic -T /home/parallels/Desktop/OpenLane/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.nom.lef def read iiitb_pwm_gen.def &
+```
 **layout after Routing**
 
 <img width="1115" alt="image" src="https://user-images.githubusercontent.com/110079648/187444627-f46468d6-a0fb-4f2b-9215-9a1f3b33bf2d.png">
