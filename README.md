@@ -5,21 +5,27 @@ This project simulates the designed Pulse Width Modulated Wave Generator with Va
 *Note: Circuit requires further optimization to improve performance. Design yet to be modified.*
 
 - [1. Introduction to PWM Generator](#1-Introduction-to-PWM-Generator)
+
 - [2. Applications](#2-Applications)
+
 - [3. Blocked Diagram of PWM GENERATOR](#3-Blocked-Diagram-of-PWM-GENERATOR)
+
 - [4. Functional Simulation](#4-Functional-Simulation)
   - [4.1 About iverilog](#41-About-iverilog)
   - [4.2 About GTKWave](#42-About-GTKWave)
   - [4.3 Installing iverilog and GTKWave](#43-Installing-iverilog-and-GTKWave)
   - [4.4 Functional Simulation Process](#44-Functional-Simulation-Process)
   - [4.5 Functional Characteristics](#45-Functional-Characteristics)
+  
 - [5. SYNTHESIS](#5-SYNTHESIS)
   - [5.1 About Synthesys](#51-About-Synthesys)
   - [5.2 Synthesizer](#52-Synthesizer)
+  
 - [6. GATE LEVEL SIMULATION](#6-GATE-LEVEL-SIMULATION)
   - [6.1 About GLS](#61-About-GLS)
   - [6.2 Running GLS](#62-Running-GLS)
   - [6.3 Observations from GLS Waveforms](#63-Observations-from-GLS-Waveforms)
+  
 - [7. PHYSICAL DESIGN](#7-PHYSICAL-DESIGN)
   - [7.1 Overview of Physical Design flow](#71-Overview-of-Physical-Design-flow)
   - [7.2 Opensource EDA tools](#72-Opensource-EDA-tools)
@@ -32,27 +38,34 @@ This project simulates the designed Pulse Width Modulated Wave Generator with Va
 	- [7.6.2 layout of inverter cell](#762-layout-of-inverter-cell)
 	- [7.6.3 Generating lef file](#763-Generating-lef-file)
 		-[layout after placement](#layout-after-placement)
-	
   - [7.7 Generating Layout which inculdes custom made sky130_vsdinv](#77-Generating-Layout-which-inculdes-custom-made-sky130_vsdinv)
   	- [7.7.1 invkoing openlane, running the flow in Interactive mode, loading package](#771-invkoing-openlane)
 	- [7.7.2 Preparing the design](#772-Preparing-the-design)
 	- [7.7.3 Synthesis](#773-Synthesis)
 		- [Statistics after synthesis](#Statistics-after-synthesis)
 		- [Calculation of Flop Ratio](#Calculation-of-Flop-Ratio)
-		- [sky130_vsdinv after placement](#sky130_vsdinv-after-placement)
 	- [7.7.4 Floorplan](#774-Floorplan)
 	- [7.7.5 Placement](#775-Placement)
+		- [sky130_vsdinv after placement](#sky130_vsdinv-after-placement)
+	- [7.7.6 CTS](#776-CTS)
+		-[Clock SKEW report](#Clock-SKEW-report)	[Setup timing report](#Setup-timing-report)	[Hold timing report](#Hold-timing-report)	[Total Negative Slack](#Total-Negative-Slack)	[Wrost Neagative Slack](#Wrost-Neagative-Slack)	[Wrost Slack](#Wrost-Slack)	[Area report](#Area-report)	[Power Report](#Power-Report)	[Slew Report](#Slew-Report)
+		
+	- [7.7.7 Routing](#777-Routing)
+		-[layout after Routing](#layout-after-Routing)
 	- [](#)
-	- [](#)
-	- [](#)
-	7.7.3 Synthesis
 	
   - [7.8 Identifing custom made sky130_vsdinv](#78-Identifing-custom-made-sky130_vsdinv)
-  - [7.9 Reports](#79-Reports)
-- [8. Future work](#8-Future-work)
+
+- [8. Performance Calculation using OpenSTA](#8-Performance-Calculation-using-OpenSTA)
+
+- [9. Parameters](#9-Parameters)
+
 - [9. Contributors ](#9-Contributors)
+
 - [10. Acknowledgments](#10-Acknowledgments)
+
 - [11. Contact Information](#11-Contact-Information)
+
 - [12. References](#12-References)
 
 ## 1. Introduction to PWM Generator
@@ -617,7 +630,7 @@ magic -T /home/parallels/Desktop/OpenLane/pdks/sky130A/libs.tech/magic/sky130A.t
 <img width="1399" alt="image" src="https://user-images.githubusercontent.com/110079648/192588435-aa5e227d-196b-4691-a0d8-63f8e04d60d3.png">
 
 
-#### CTS
+#### 7.7.6 CTS
 
 - Clock tree synteshsis is used to create the clock distribution network that is used to deliver the clock to all sequential elements. The main goal is to create a network with minimal skew across the chip. H-trees are a common network topology that is used to achieve this goal.
 
@@ -630,15 +643,15 @@ magic -T /home/parallels/Desktop/OpenLane/pdks/sky130A/libs.tech/magic/sky130A.t
 % run_cts
 ```
 
-- **Clock SKEW** report:
+#### Clock SKEW report
 
 <img width="534" alt="image" src="https://user-images.githubusercontent.com/110079648/192589320-602d0a94-7580-4417-91ab-7c6f05148b3f.png">
 
-- **CTS-STA-MAX(setup)** timing report
+#### Setup timing report
 
 <img width="1011" alt="image" src="https://user-images.githubusercontent.com/110079648/192590586-7e3c1c38-45ce-4317-ba40-6561a8afabd1.png">
 
-- **CTS-STA-MIN(hold)** timing report
+#### Hold timing report
 
 <img width="783" alt="image" src="https://user-images.githubusercontent.com/110079648/192590869-702a2f8e-7c14-4090-b05b-3a9909b69fac.png">
 
@@ -667,7 +680,7 @@ magic -T /home/parallels/Desktop/OpenLane/pdks/sky130A/libs.tech/magic/sky130A.t
 <img width="655" alt="image" src="https://user-images.githubusercontent.com/110079648/192592127-b1de95ba-4c7f-4269-bc34-32dc7bda1c16.png">
 
 
-#### Routing
+#### 7.7.7 Routing
 
 Implements the interconnect system between standard cells using the remaining available metal layers after CTS and PDN generation. The routing is performed on routing grids to ensure minimal DRC errors.
 
@@ -706,7 +719,7 @@ Fast Route generates the routing guides, whereas Triton Route uses the Global Ro
 ```
 magic -T /home/parallels/Desktop/OpenLane/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.nom.lef def read iiitb_pwm_gen.def &
 ```
-**layout after Routing**
+#### layout after Routing
 
 <img width="1115" alt="image" src="https://user-images.githubusercontent.com/110079648/187444627-f46468d6-a0fb-4f2b-9215-9a1f3b33bf2d.png">
 
@@ -743,24 +756,62 @@ sky130_vsdinv _ _172_ _
 
 <img width="543" alt="image" src="https://user-images.githubusercontent.com/110079648/187447979-27aaaeb0-1da4-41df-aaaa-df5e17e0e976.png">
 
+## 8. Performance Calculation using OpenSTA
 
-### 7.9 Reports
+Static timing analysis (STA) is a method of validating the timing performance of a design by checking all possible paths for timing violations. STA breaks a design down into timing paths, calculates the signal propagation delay along each path, and checks for violations of timing constraints inside the design and at the input/output interface.
 
-<img width="365" alt="image" src="https://user-images.githubusercontent.com/110079648/187456325-b861497f-b683-4532-a0dd-ae74932f3210.png">
+> How does STA work?
+When performing timing analysis, STA first breaks down the design into timing paths. Each timing path consists of the following elements:
 
-<img width="282" alt="image" src="https://user-images.githubusercontent.com/110079648/187456402-e3dc80ec-0413-43dd-8dc1-de23ab4aa120.png">
+Startpoint The start of a timing path where data is launched by a clock edge or where the data must be available at a specific time. Every startpoint must be either an input port or a register clock pin.
 
-<img width="652" alt="image" src="https://user-images.githubusercontent.com/110079648/187456862-d3c4ea27-ad68-4ee0-9dcb-c61a1db4877c.png">
+Combinational logic network Elements that have no memory or internal state. Combinational logic can contain AND, OR, XOR, and inverter elements, but cannot contain flip-flops, latches, registers, or RAM.
 
-<img width="321" alt="image" src="https://user-images.githubusercontent.com/110079648/187457004-a00ceb95-83bc-48d7-bf4a-0c1d138e3bcf.png">
+Endpoint The end of a timing path where data is captured by a clock edge or where the data must be available at a specific time. Every endpoint must be either a register data input pin or an output port.
+
+![image](https://user-images.githubusercontent.com/110079648/192609459-b3458347-940f-4ce0-860f-9d6cde5c106e.png)
+
+- To run STA in `Openlane` and type `sta` to enter openSTA
+
+![image](https://user-images.githubusercontent.com/110079648/192609736-c70c3957-961b-44cb-ba32-9dd52882a7ec.png)
+
+- Run the following commands
+
+```
+%	read_liberty -min /home/parallels/Desktop/OpenLane/pdks/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__ff_n40C_1v56.lib
+%	read_liberty -max /home/parallels/Desktop/OpenLane/pdks/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__ff_n40C_1v56.lib
+%	read_verilog /home/parallels/Desktop/OpenLane/pdks/sky130A/iiitb_pwm_gen.v
+%	link_design iiitb_pwm_gen
+%	read_sdc /home/parallels/Desktop/OpenLane/pdks/sky130A/iiitb_pwm_gen.sdc
+%	set_propagated_clock [all_clocks]
+%	report_checks
+
+```
+
+- To report the particular path use the following command
+
+```
+%	report_checks -from _247_ -to _244_
+%	report_check -from  _247_ -to _245_
+```
+![image](https://user-images.githubusercontent.com/110079648/192610890-1ef7afec-a5e6-46d2-bffb-afa8d31345c4.png)
 
 
+### Performance Caluculation:
 
-## 8. Future work
-working on **GLS for post-layout netlist**.
+```							1
+Maximum Possible Operating Frequency = -----------------------------
+					  Clock period - Setup Slack
+					  
+					          1
+				      = ---------------------  
+				            65ns - 61.36ns
+				            
+				      = 0.274725275 GH
+```
 
 
-
+## 9. Parameters
 
 ## 9. Contributors 
 
