@@ -405,6 +405,35 @@ Also copy lib files from vsdcelldesign/libs to designs/iiit_pwm_gen/src
 
 <img width="1396" alt="image" src="https://user-images.githubusercontent.com/110079648/187434252-1ef1d250-157d-4298-b24b-4b350fd1cba7.png">
 
+- Next modify the `config.json` file in our design to folloing code:
+
+<img width="712" alt="image" src="https://user-images.githubusercontent.com/110079648/192551224-ba918ff7-a617-4fbc-9a53-81f10a3d02b5.png">
+
+```
+{
+  "DESIGN_NAME": "iiitb_pwm_gen",
+  "VERILOG_FILES": "dir::src/iiitb_pwm_gen.v",
+  "CLOCK_PORT": "clk",
+  "CLOCK_NET": "clk",
+  "FP_SIZING": "relative",
+  "LIB_SYNTH" : "dir::src/sky130_fd_sc_hd__typical.lib",
+  "LIB_FASTEST" : "dir::src/sky130_fd_sc_hd__fast.lib",
+  "LIB_SLOWEST" : "dir::src/sky130_fd_sc_hd__slow.lib",
+  "LIB_TYPICAL":"dir::src/sky130_fd_sc_hd__typical.lib",
+  "TEST_EXTERNAL_GLOB":"dir::../sd_fsm/src/*",
+  "SYNTH_DRIVING_CELL":"sky130_vsdinv",
+  "pdk::sky130*": {
+    "FP_CORE_UTIL": 35,
+    "CLOCK_PERIOD": 24,
+    "scl::sky130_fd_sc_hd": {
+      "FP_CORE_UTIL": 30
+    }
+  }
+}
+
+```
+this config file is avilable in repo under name `config1.json`.
+
 ### 7.7 Generating Layout which inculdes custom made sky130_vsdinv
 
 #### invkoing openlane
@@ -416,7 +445,10 @@ $ sudo make mount
 ```
 <img width="723" alt="image" src="https://user-images.githubusercontent.com/110079648/187436509-69de182c-6681-4761-b298-ae0f79d0d05a.png">
 
-run the flow in interactive mode using following command
+- INTERACTIVE MODE: We need to run the openlane now in the interactive mode to include our custom made lef file before synthesis.Such that the openlane recognises our lef files during the flow for mapping.
+
+- Running openlane in interactive mode: The commands to the run the flow in interactive mode is given below:
+
 
 ```
 $ ./flow.tcl -interactive
@@ -428,7 +460,7 @@ Loading the package file
 % package require openlane 0.9
 ```
 
- preparing design to run
+- Preparing the design and including the lef files: The commands to prepare the design and overwite in a existing run folder the reports and results along with the command to include the lef files is given below:
 
 ```
 % prep -design iiitb_pwm_gen
@@ -458,17 +490,45 @@ to synthesize the code run the following command
 
 #### Statistics** after synthesis
 
-> pre synthesis stat
 
-<img width="373" alt="image" src="https://user-images.githubusercontent.com/110079648/187439837-22cd4173-e0b6-4d4a-bab7-567392bd574b.png">
 
 > post synthesis stat
 
-<img width="529" alt="image" src="https://user-images.githubusercontent.com/110079648/187440444-cbe120f0-c496-43b7-a801-d68904cb3907.png">
+![image](https://user-images.githubusercontent.com/110079648/192553423-55ac3c34-2cc3-4d47-833a-9fce83e89bd1.png)
+
+#### Calculation of Flop Ratio
+
+ ```
+  
+        Flop ratio = Number of D Flip flops 
+                     ______________________
+                     Total Number of cells
+		     
+```
+
+![image](https://user-images.githubusercontent.com/110079648/192553505-3de38cb4-31e6-4cd7-8de5-90636a214caa.png)
+
 
 #### Floorplan
 
 Goal is to plan the silicon area and create a robust power distribution network (PDN) to power each of the individual components of the synthesized netlist. In addition, macro placement and blockages must be defined before placement occurs to ensure a legalized GDS file. In power planning we create the ring which is connected to the pads which brings power around the edges of the chip. We also include power straps to bring power to the middle of the chip using higher metal layers which reduces IR drop and electro-migration problem.
+
+  * **1. Importance of files in increasing priority order:**
+
+        1. ```floorplan.tcl``` - System default envrionment variables
+        2. ```conifg.tcl```
+        3. ```sky130A_sky130_fd_sc_hd_config.tcl```
+        
+      * **2. Floorplan envrionment variables or switches:**
+
+        1. ```FP_CORE_UTIL``` - floorplan core utilisation
+        2. ```FP_ASPECT_RATIO``` - floorplan aspect ratio
+        3. ```FP_CORE_MARGIN``` - Core to die margin area
+        4. ```FP_IO_MODE``` - defines pin configurations (1 = equidistant/0 = not equidistant)
+        5. ```FP_CORE_VMETAL``` - vertical metal layer
+        6. ```FP_CORE_HMETAL``` - horizontal metal layer
+           
+        ```Note: Usually, vertical metal layer and horizontal metal layer values will be 1 more than that specified in the file```
 
 run the folliwing command to run floorplan
 
