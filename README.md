@@ -791,11 +791,15 @@ working on **GLS for post-layout netlist**.
 ```
 $ sudo make mount
 ```
+
+
 ```
 sta
 ```
 
 <img width="1392" alt="image" src="https://user-images.githubusercontent.com/110079648/192580358-4d0d3fa7-7344-4986-a84d-76e723e30557.png">
+
+
 ```
 read_liberty -min /home/parallels/Desktop/OpenLane/pdks/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__ff_n40C_1v56.lib
 read_liberty -max /home/parallels/Desktop/OpenLane/pdks/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__ff_n40C_1v56.lib
@@ -805,7 +809,7 @@ read_sdc /home/parallels/Desktop/OpenLane/pdks/sky130A/iiitb_pwm_gen.sdc
 set_propagated_clock [all_clocks]
 report_checks
 ```
-
+......
 ```
 report_checks -from _247_ -to _244_
 report_check -from  _247_ -to _245_
