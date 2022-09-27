@@ -838,7 +838,8 @@ Area=6586.0834 micrometre^2
 
 ### 9.3 Performance achieved
 Performance = 0.274725275 GHz
-<img width="139" alt="image" src="https://user-images.githubusercontent.com/110079648/192614686-614212f3-da88-4a75-b1c0-010343529f23.png">
+![image](https://user-images.githubusercontent.com/110079648/192619588-d9682c54-edf4-4159-a20b-cf9654b1a2d8.png)
+
 
 ### 9.4 flip flop to standard cell ratio
 flip-flop to standard cell ratio = 40/179 = 0.2235
