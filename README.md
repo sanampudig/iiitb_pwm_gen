@@ -59,8 +59,7 @@ This project simulates the designed Pulse Width Modulated Wave Generator with Va
 		* [Slew Report](#Slew-Report)
 		
 	- [7.7.7 Routing](#777-Routing)
-		*[layout after Routing](#layout-after-Routing)
-	- [](#)
+		* [layout after Routing](#layout-after-Routing)
 	
   - [7.8 Identifing custom made sky130_vsdinv](#78-Identifing-custom-made-sky130_vsdinv)
 
