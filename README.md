@@ -669,27 +669,27 @@ magic -T /home/parallels/Desktop/OpenLane/pdks/sky130A/libs.tech/magic/sky130A.t
 
 <img width="783" alt="image" src="https://user-images.githubusercontent.com/110079648/192590869-702a2f8e-7c14-4090-b05b-3a9909b69fac.png">
 
-- Total Negative Slack
+#### Total Negative Slack
 
 <img width="518" alt="image" src="https://user-images.githubusercontent.com/110079648/192591116-75ef37cc-61aa-46ea-9bf0-c4ec5621e81d.png">
 
-- Wrost Neagative Slack
+#### Wrost Neagative Slack
 
 <img width="531" alt="image" src="https://user-images.githubusercontent.com/110079648/192591204-d3d00b2b-22b6-4b52-b20a-541b8f214f63.png">
 
-- Wrost Slack
+#### Wrost Slack
 
 <img width="528" alt="image" src="https://user-images.githubusercontent.com/110079648/192592043-0e273efa-e6e6-4408-bb0a-e67329476b06.png">
 
-- Area report
+#### Area report
 
 <img width="540" alt="image" src="https://user-images.githubusercontent.com/110079648/192591302-34e469ce-dbee-480d-b40d-b5b87b6dedc9.png">
 
-- Power Report
+#### Power Report
 
 <img width="707" alt="image" src="https://user-images.githubusercontent.com/110079648/192591791-74c945e2-2aea-467d-81df-ebea40dc7eeb.png">
 
-- Slew Report
+#### Slew Report
 
 <img width="655" alt="image" src="https://user-images.githubusercontent.com/110079648/192592127-b1de95ba-4c7f-4269-bc34-32dc7bda1c16.png">
 
@@ -874,31 +874,3 @@ Total power = 0.137mW
 - FPGA4Student
  https://www.fpga4student.com/2017/08/verilog-code-for-pwm-generator.html
 
-
-
-```
-$ sudo make mount
-```
-
-
-```
-$ sta
-```
-
-<img width="1392" alt="image" src="https://user-images.githubusercontent.com/110079648/192580358-4d0d3fa7-7344-4986-a84d-76e723e30557.png">
-
-
-```
-%	read_liberty -min /home/parallels/Desktop/OpenLane/pdks/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__ff_n40C_1v56.lib
-%	read_liberty -max /home/parallels/Desktop/OpenLane/pdks/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__ff_n40C_1v56.lib
-%	read_verilog /home/parallels/Desktop/OpenLane/pdks/sky130A/iiitb_pwm_gen.v
-%	link_design iiitb_pwm_gen
-%	read_sdc /home/parallels/Desktop/OpenLane/pdks/sky130A/iiitb_pwm_gen.sdc
-%	set_propagated_clock [all_clocks]
-%	report_checks
-```
-......
-```
-%	report_checks -from _247_ -to _244_
-%	report_check -from  _247_ -to _245_
-```
