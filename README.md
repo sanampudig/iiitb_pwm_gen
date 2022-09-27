@@ -71,10 +71,10 @@ This project simulates the designed Pulse Width Modulated Wave Generator with Va
    - [9.3 Performance GHz/MHz achieved](#93-Performance-achieved)
    - [9.4 flip-flop to standard cell ratio](#94-flip-flop-to-standard-cell-ratio)
    - [9.5 total power consumed](#95-total-power-consumed)
+ 
+- [10. Tapeout](#10-Tapeout)
 
-- [10. Contributors ](#10-Contributors)
-
-- [11. Tapeout](#11-Tapeout)
+- [11. Contributors ](#11-Contributors)
 
 - [12. Acknowledgments](#12-Acknowledgments)
 
