@@ -348,8 +348,13 @@ layout will be open in new window
 ### 7.6 Customizing the layout
 #### sky130_vsdinv cell creation
 
-Lets design a custom cell and include in library and get it in final layout.
-clone the vsdcelldesign repo using following command
+Here we are going to customise our layout by including our custom made sky130_vsdinv cell into our layout.
+
+- 1 . CREATING THE SKY130_VSDINV CELL LEF FILE
+
+   -You need to first get the git repository of the vsdstdccelldesign.To get the    repository type the following command:
+
+
 ```
 $ git clone https://github.com/nickson-jose/vsdstdcelldesign
 ```
@@ -358,17 +363,34 @@ $ git clone https://github.com/nickson-jose/vsdstdcelldesign
 
 <img width="603" alt="image" src="https://user-images.githubusercontent.com/110079648/187429095-09758379-48fb-435a-bf32-5f5d5b0c232c.png">
 
-copy sky130A.tech to vsdstdcelldesign directory 
+- Now you need to copy your tech file sky130A.tech to this folder.
+
+- Next run the magic command to open the sky130_vsdinv.mag file.Use the following command:
 
 ```
 $ magic -T sky130A.tech sky130_inv.mag 
 ```
+- One can zoom into Magic layout by selecting an area with left and right mouse click followed by pressing "z" key.
+- Various components can be identified by using the what command in tkcon window after making a selection on the component.
+- The image showing the invoked magic tool using the above command:
+
+
 
 #### layout of inverter cell
 
 <img width="1401" alt="image" src="https://user-images.githubusercontent.com/110079648/187430540-b10c0584-7e3a-42d0-a8ac-1829bdf1ef0b.png">
 
+- The next step is setting `port class` and `port use` attributes. The "class" and "use" properties of the port have no internal meaning to magic but are used by the LEF and DEF format read and write routines, and match the LEF/DEF CLASS and USE properties for macro cell pins. These attributes are set in tkcon window (after selecting each port on layout window. A keyboard shortcut would be,repeatedly pressing s till that port gets highlighed).
+
+The tkcon command window of the port classification is shown in the image below:
+
+<img width="476" alt="image" src="https://user-images.githubusercontent.com/110079648/192549705-8aeb6d36-2195-4152-b09e-04a48cfd1301.png">
+
+
+
 #### Generating lef file
+- In the next step, use `lef write` command to write the LEF file with the same nomenclature as that of the layout `.mag` file. This will create a **sky130_vsdinv.lef** file in the same folder.
+   
 
 in tkcon terminal type the following command to generate **.lef** file
 
