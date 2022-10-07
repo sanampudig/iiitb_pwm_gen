@@ -1,6 +1,6 @@
 # iiitb_pwm_gen -> Pulse Width Modulated Wave Generator with Variable Duty Cycle
 
-![Uploading image.png…]()
+<img width="955" alt="image" src="https://user-images.githubusercontent.com/110079648/194478293-319e9eb2-9ee5-4d1f-b463-7ce14ea3c026.png">
 
 
 This project simulates the designed Pulse Width Modulated Wave Generator with Variable Duty Cycle. We can generate PWM wave and varry its DUTYCYCLE in steps of 10%
